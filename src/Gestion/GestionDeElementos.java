@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 public class GestionDeElementos <T>{
 
-    ArrayList<T> elementos;
+   private ArrayList<T> elementos;
 
     public GestionDeElementos() {
         this.elementos = new ArrayList<>();
     }
+
 
 
 }
