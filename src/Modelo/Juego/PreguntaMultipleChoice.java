@@ -3,11 +3,13 @@ package Modelo.Juego;
 import Excepciones.RespuestaIncorrecta;
 import Gestion.GestionDeElementos;
 import Interfaces.IEvaluable;
+import Interfaces.IObtener;
 
-public class PreguntaMultipleChoice extends Pregunta implements IEvaluable {
+public class PreguntaMultipleChoice extends Pregunta implements IEvaluable, IObtener {
 
+    private static final int puntajeBase = 20;
     private GestionDeElementos<String> opciones;
-    private final String respuestaCorrecta = "";
+    private String respuestaCorrecta;
 
 
     @Override
@@ -16,5 +18,21 @@ public class PreguntaMultipleChoice extends Pregunta implements IEvaluable {
             throw new RespuestaIncorrecta("Respuesta incorrecta");
         }
         return true;
+    }
+    
+    @Override
+    public int getPuntajeBase() {
+        return puntajeBase;
+    }
+
+    @Override
+   public String mostrarOpciones(){
+       StringBuilder op = new StringBuilder();
+        int i = 1;
+        for(String aux : opciones.getElementos()){
+            op.append(i +". " + aux + "\n");
+            i++;
+        }
+        return op.toString();
     }
 }
