@@ -10,6 +10,10 @@ public class GestionDeElementos <T>{
         this.elementos = new ArrayList<>();
     }
 
+    public ArrayList<T> getElementos() {
+        return elementos;
+    }
+
     public void agregar(T t) {
 
             if(elementos.contains(t)) {
