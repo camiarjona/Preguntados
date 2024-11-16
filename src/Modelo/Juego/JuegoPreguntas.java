@@ -7,4 +7,6 @@ public class JuegoPreguntas {
 
     private GestionDeElementos<Ronda> rondas;
     private Jugador jugador;
+
+
 }

@@ -1,5 +1,8 @@
 package Gestion;
 
+import Excepciones.ElementoDuplicado;
+import Interfaces.IJson;
+
 import java.util.ArrayList;
 
 public class GestionDeElementos <T>{
@@ -14,53 +17,38 @@ public class GestionDeElementos <T>{
         return elementos;
     }
 
-    public void agregar(T t) {
-
-            if(elementos.contains(t)) {
-
-                //tirar excepcion
-
-            }
-            elementos.add(t);
-    }
-
-    public void eliminar(T t) {
-
+    /**
+     * Agrega un elemento a la lista si no está presente previamente.
+     * @param t el elemento que se desea agregar a la lista.
+     * @throws ElementoDuplicado si el elemento ya se encuentra en la lista
+     */
+    public void agregarElemento(T t) throws ElementoDuplicado {
         if(elementos.contains(t)) {
-
-            //tirar excepcion
-
+            throw new ElementoDuplicado("El elemento ya se encuentra en la lista");
         }
-        elementos.remove(t);
+        elementos.add(t);
     }
 
 
-    public void buscar(T t) {
+    public void eliminarElemento (T t) {
+        if(elementos.contains(t)) {
+            elementos.remove(t);
+        }
+        else{
+            throw new IllegalArgumentException("El elemento no se encuentra en la lista");
+        }
+    }
 
-            boolean flag = false;
+    public T buscarElemento(T t) {
             if(elementos.isEmpty()) {
-                // tirar excepcion
+                throw new IllegalArgumentException("La lista no contiene elementos");
             }
-
-            for(  T elemento : elementos) {
-
-                    if(elemento.equals(t)) {
-
-                        //elemento encontrado mensajito y si se quiere retornar el elemento buscado
-                        flag = true;
-                    }
+            if(elementos.contains(t)) {
+                return elementos.get(elementos.indexOf(t));
             }
-            if(!flag) {
-
-                /// exepcion con mensaje que no se encontro el elemento.
-
+            else{
+                throw new IllegalArgumentException("El elemento no se encuentra en la lista");
             }
-
-
-
-
     }
-
-
-
 }
+
