@@ -4,6 +4,7 @@ import Excepciones.RespuestaIncorrecta;
 import Gestion.GestionDeElementos;
 import Interfaces.IEvaluable;
 import Interfaces.IObtener;
+import org.json.JSONObject;
 
 public class PreguntaMultipleChoice extends Pregunta implements IEvaluable, IObtener {
 
@@ -19,7 +20,7 @@ public class PreguntaMultipleChoice extends Pregunta implements IEvaluable, IObt
         }
         return true;
     }
-    
+
     @Override
     public int getPuntajeBase() {
         return puntajeBase;
@@ -34,5 +35,15 @@ public class PreguntaMultipleChoice extends Pregunta implements IEvaluable, IObt
             i++;
         }
         return op.toString();
+    }
+
+    @Override
+    public JSONObject toJson() {
+        return null;
+    }
+
+    @Override
+    public Pregunta toObj() {
+        return null;
     }
 }

@@ -3,6 +3,7 @@ package Modelo.Juego;
 import Excepciones.RespuestaIncorrecta;
 import Interfaces.IEvaluable;
 import Interfaces.IObtener;
+import org.json.JSONObject;
 
 public class PreguntaVerdaderoOFalso extends Pregunta implements IEvaluable, IObtener {
 
@@ -35,4 +36,13 @@ public class PreguntaVerdaderoOFalso extends Pregunta implements IEvaluable, IOb
     }
 
 
+    @Override
+    public JSONObject toJson() {
+        return null;
+    }
+
+    @Override
+    public Pregunta toObj() {
+        return null;
+    }
 }
