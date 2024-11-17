@@ -1,6 +1,6 @@
 package Modelo.Juego;
 
-import Excepciones.RespuestaIncorrecta;
+import Excepciones.Preguntas.RespuestaIncorrecta;
 import Gestion.GestionDeElementos;
 import Interfaces.IEvaluable;
 import Interfaces.IObtener;
@@ -42,8 +42,5 @@ public class PreguntaMultipleChoice extends Pregunta implements IEvaluable, IObt
         return null;
     }
 
-    @Override
-    public Pregunta toObj() {
-        return null;
-    }
+
 }
