@@ -1,11 +1,8 @@
 package Modelo.Usuario;
 
-import Interfaces.IJson;
-import org.json.JSONObject;
-
 import java.util.Objects;
 
-public class Usuario implements IJson<Usuario> {
+public class Usuario {
 
     protected String nombreUsuario;
     protected String email;
@@ -36,26 +33,26 @@ public class Usuario implements IJson<Usuario> {
         this.contrasenia = contrasenia;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        Usuario usuario = (Usuario) object;
-        return Objects.equals(nombreUsuario, usuario.nombreUsuario) && Objects.equals(contrasenia, usuario.contrasenia);
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(nombreUsuario, usuario.nombreUsuario) || Objects.equals(email, usuario.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nombreUsuario, contrasenia);
+        return Objects.hash(nombreUsuario, email);
     }
 
-    @Override
-    public JSONObject toJson() {
-        return null;
-    }
 
-    @Override
-    public Usuario toObj() {
-        return null;
-    }
+
 }
