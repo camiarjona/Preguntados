@@ -4,6 +4,7 @@ import Excepciones.Preguntas.RespuestaIncorrecta;
 import Interfaces.IEvaluable;
 import Interfaces.IObtener;
 import Modelo.Enum.Categoria;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PreguntaVerdaderoOFalso extends Pregunta   {
@@ -16,6 +17,10 @@ public class PreguntaVerdaderoOFalso extends Pregunta   {
         this.respuestaCorrecta = respuestaCorrecta;
     }
 
+    public PreguntaVerdaderoOFalso()
+    {
+        super();
+    }
 
     @Override
     public boolean evaluarRespuesta(String respuesta) throws RespuestaIncorrecta {
@@ -32,6 +37,10 @@ public class PreguntaVerdaderoOFalso extends Pregunta   {
         return puntajeBase;
     }
 
+    public void setRespuestaCorrecta(String respuestaCorrecta) {
+        this.respuestaCorrecta = respuestaCorrecta;
+    }
+
     @Override
     public String mostrarOpciones() {
         StringBuilder op = new StringBuilder();
@@ -44,8 +53,42 @@ public class PreguntaVerdaderoOFalso extends Pregunta   {
 
     @Override
     public JSONObject toJson() {
-        return null;
+
+        JSONObject  jsonObject = new JSONObject();
+        try
+        {
+            jsonObject.put("Enunciado", enunciado);
+            jsonObject.put("Categoria", categoria);
+            jsonObject.put("Respuesta Correcta", respuestaCorrecta);
+
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+        return jsonObject;
     }
 
+    public static PreguntaVerdaderoOFalso jsonToObject(JSONObject jsonObject)
+    {
+        PreguntaVerdaderoOFalso nuevaPreguntaVoF = new PreguntaVerdaderoOFalso();
+        try
+        {
+            String enunciado = jsonObject.getString("Enunciado");
+            Categoria categoria = Categoria.valueOf(jsonObject.getString("Categoria"));
+            String respuestaCorrecta = jsonObject.getString("Respuesta Correcta");
+
+            nuevaPreguntaVoF.setEnunciado(enunciado);
+            nuevaPreguntaVoF.setCategoria(categoria);
+            nuevaPreguntaVoF.setRespuestaCorrecta(respuestaCorrecta);
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+        return nuevaPreguntaVoF;
+
+    }
 
 }
