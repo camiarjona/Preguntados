@@ -36,6 +36,14 @@ public class Jugador extends Usuario implements IJson {
       return jsonArray;
    }
 
+   public GestionDeElementos<Puntaje> getPuntajesHistorial() {
+      return puntajesHistorial;
+   }
+
+   public void setPuntajesHistorial(GestionDeElementos<Puntaje> puntajesHistorial) {
+      this.puntajesHistorial = puntajesHistorial;
+   }
+
    @Override
    public JSONObject toJson() {
       JSONObject json = new JSONObject();

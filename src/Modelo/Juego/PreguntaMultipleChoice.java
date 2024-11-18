@@ -6,20 +6,26 @@ import Interfaces.IEvaluable;
 import Interfaces.IObtener;
 import org.json.JSONObject;
 
-public class PreguntaMultipleChoice extends Pregunta implements IEvaluable, IObtener {
+public class PreguntaMultipleChoice extends Pregunta{
 
     private static final int puntajeBase = 20;
     private GestionDeElementos<String> opciones;
     private String respuestaCorrecta;
 
+    public GestionDeElementos<String> getOpciones() {
+        return opciones;
+    }
+
 
     @Override
-    public boolean evaluarRespuesta(String respuesta) throws RespuestaIncorrecta{
-        if(!respuesta.equals(respuestaCorrecta)){
-            throw new RespuestaIncorrecta("Respuesta incorrecta");
+    public boolean evaluarRespuesta(String respuesta) throws RespuestaIncorrecta {
+
+        if(!respuestaCorrecta.equalsIgnoreCase(respuesta)){
+            throw new RespuestaIncorrecta("Respuesta Incorrecta");
         }
         return true;
     }
+
 
     @Override
     public int getPuntajeBase() {
@@ -27,7 +33,7 @@ public class PreguntaMultipleChoice extends Pregunta implements IEvaluable, IObt
     }
 
     @Override
-   public String mostrarOpciones(){
+    public String mostrarOpciones(){
        StringBuilder op = new StringBuilder();
         int i = 1;
         for(String aux : opciones.getElementos()){
