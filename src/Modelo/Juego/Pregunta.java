@@ -1,13 +1,47 @@
 package Modelo.Juego;
 
+import Interfaces.IEvaluable;
 import Interfaces.IJson;
+import Interfaces.IObtener;
 import Modelo.Enum.Categoria;
 
-public abstract class Pregunta implements IJson{
+import java.util.Objects;
+
+public abstract class Pregunta implements IJson, IEvaluable, IObtener {
 
     protected String enunciado;
     protected Categoria categoria;
 
+    public Pregunta(String enunciado, Categoria categoria) {
+        this.enunciado = enunciado;
+        this.categoria = categoria;
+    }
 
+    public String getEnunciado() {
+        return enunciado;
+    }
 
+    public String mostrarOpciones(){
+        return "";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Pregunta pregunta = (Pregunta) o;
+        return Objects.equals(enunciado, pregunta.enunciado);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(enunciado);
+    }
+
+    @Override
+    public String toString() {
+        return "Pregunta: " +
+                "\n Enunciado: " + enunciado +
+                " Categoria: " + categoria +
+                "\n";
+    }
 }

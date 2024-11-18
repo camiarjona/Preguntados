@@ -4,13 +4,28 @@ import Excepciones.Preguntas.RespuestaIncorrecta;
 import Gestion.GestionDeElementos;
 import Interfaces.IEvaluable;
 import Interfaces.IObtener;
+import Modelo.Enum.Categoria;
 import org.json.JSONObject;
 
-public class PreguntaMultipleChoice extends Pregunta implements IEvaluable, IObtener {
+public class PreguntaMultipleChoice extends Pregunta{
 
     private static final int puntajeBase = 20;
     private GestionDeElementos<String> opciones;
     private String respuestaCorrecta;
+
+    public PreguntaMultipleChoice(String enunciado, Categoria categoria, String respuestaCorrecta) {
+        super(enunciado, categoria);
+        this.opciones = new GestionDeElementos<>();
+        this.respuestaCorrecta = respuestaCorrecta;
+    }
+
+    public GestionDeElementos<String> getOpciones() {
+        return opciones;
+    }
+
+    public void agregarOpcion(String opcion) {
+        opciones.agregarElemento(opcion);
+    }
 
 
     @Override
