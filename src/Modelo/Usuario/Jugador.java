@@ -13,6 +13,7 @@ public class Jugador extends Usuario implements IJson {
 
    private ArrayList<Puntaje> puntajesHistorial;
 
+   ///Constructor
    public Jugador(String nombreUsuario, String email, String contrasenia) {
       super(nombreUsuario, email, contrasenia);
       this.puntajesHistorial = new ArrayList<>();
@@ -63,6 +64,15 @@ public class Jugador extends Usuario implements IJson {
       return jsonArray;
    }
 
+   ///Getter and setter
+   public GestionDeElementos<Puntaje> getPuntajesHistorial() {
+      return puntajesHistorial;
+   }
+   public void setPuntajesHistorial(GestionDeElementos<Puntaje> puntajesHistorial) {
+      this.puntajesHistorial = puntajesHistorial;
+   }
+
+   //Sobreescritura
    @Override
    public JSONObject toJson() {
       JSONObject json = new JSONObject();

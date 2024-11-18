@@ -52,5 +52,9 @@ public class GestionDeElementos <T>{
                 throw new ElementoNoExiste("El elemento no se encuentra en la lista");
             }
     }
+
+    public ArrayList<T> obtenerTodosLosElementos() {
+        return new ArrayList<>(this.elementos);
+    }
 }
 
