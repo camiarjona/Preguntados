@@ -26,8 +26,8 @@ public class Ronda {
         this.jugador = jugador;
     }
 
-    public Puntaje obtenerPuntaje() {
-        return puntaje;
+    public int obtenerPuntaje() {
+        return puntaje.getPuntaje();
     }
 
 
@@ -55,11 +55,13 @@ public class Ronda {
 
     // Maneja las preguntas de una categoría específica
     private void jugarPorCategoria(Categoria categoria, Scanner scanner) {
-        List<Pregunta> preguntasDesordenadas = desordenarPreguntas(); // Desordenar preguntas
+        List<Pregunta> preguntasDesordenadas = desordenarPreguntas();
+        int racha = 0;
+    // Desordenar preguntas
 
         for (int preguntaActual = 1; preguntaActual < 4; preguntaActual++) {
             System.out.println("\nPregunta " + preguntaActual + " de 3 en la categoría " + categoria);
-            procesarPreguntasPorCategoria(preguntasDesordenadas, categoria, scanner); // Procesar preguntas
+            racha = procesarPreguntasPorCategoria(preguntasDesordenadas, categoria, scanner, racha); // Procesar preguntas
         }
         System.out.println("Fin de la categoría: " + categoria);
 
@@ -73,17 +75,17 @@ public class Ronda {
     }
 
     // Procesa las preguntas filtradas por categoría, mostrando y evaluando cada una.
-    private void procesarPreguntasPorCategoria(List<Pregunta> preguntasDesordenadas, Categoria categoria, Scanner scanner) {
-        int racha = 0;
+    private int procesarPreguntasPorCategoria(List<Pregunta> preguntasDesordenadas, Categoria categoria, Scanner scanner, int racha) {
         for (Pregunta preguntaAux : preguntasDesordenadas) {
             if (preguntaAux.categoria == categoria) {
-                manejarPregunta(preguntaAux, racha, scanner);
+                racha = manejarPregunta(preguntaAux, racha, scanner);
             }
         }
+        return racha;
     }
 
     // Maneja una pregunta específica: muestra el enunciado, obtiene la respuesta y la evalúa.
-    private void manejarPregunta(Pregunta preguntaAux, int racha, Scanner scanner) {
+    private int manejarPregunta(Pregunta preguntaAux, int racha, Scanner scanner) {
         StringBuilder contenido = new StringBuilder();
         System.out.println(contenido.append(preguntaAux.getEnunciado())
                 .append("\n")
@@ -92,16 +94,44 @@ public class Ronda {
 
         try {
             preguntaAux.evaluarRespuesta(respuesta); // Si pasa, la respuesta es correcta
-            manejarRespuestaCorrecta(preguntaAux, racha);
+            racha = manejarRespuestaCorrecta(preguntaAux, racha);
         } catch (RespuestaIncorrecta e) {
-            manejarRespuestaIncorrecta(racha, e);
+            racha = manejarRespuestaIncorrecta(racha, e);
         }
+
+        return racha;
     }
 
     //obtener la respuesta seleccionada por el jugador a una pregunta, ya sea de tipo Multiple Choice o Verdadero o Falso.
     public String obtenerRespuestaDelJugador(Pregunta pregunta, Scanner scanner){
         System.out.println("\nIngrese la opcion correcta: ");
-        int opcionRespuesta = scanner.nextInt();
+        int opcionRespuesta = -1;
+        boolean entradaValida = false;
+        while (!entradaValida) {
+            try {
+                opcionRespuesta = scanner.nextInt();
+
+                // Validar si la opción ingresada está dentro del rango permitido
+                if (pregunta instanceof PreguntaMultipleChoice) {
+                    int totalOpciones = ((PreguntaMultipleChoice) pregunta).getOpciones().getElementos().size();
+                    if (opcionRespuesta < 1 || opcionRespuesta > totalOpciones) {
+                        throw new IllegalArgumentException("La opción ingresada no está dentro del rango permitido.\nIngrese la opcion correcta: ");
+                    }
+                } else if (pregunta instanceof PreguntaVerdaderoOFalso) {
+                    if (opcionRespuesta < 1 || opcionRespuesta > 2) { // 1 para Verdadero, 2 para Falso
+                        throw new IllegalArgumentException("La opción ingresada no está dentro del rango permitido.\nIngrese la opcion correcta: ");
+                    }
+                }
+
+                entradaValida = true; // Si no se lanza ninguna excepción, la entrada es válida
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Entrada inválida. Por favor, Ingrese la opcion correcta: ");
+                scanner.next(); // Consumir la entrada inválida
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+
         String respuesta = "";
 
         if(pregunta instanceof PreguntaMultipleChoice){
@@ -129,7 +159,7 @@ public class Ronda {
 
 
     // Procesa las respuestas correctas, calculando el puntaje y actualizando la racha.
-    private void manejarRespuestaCorrecta(Pregunta preguntaAux, int racha) {
+    private int manejarRespuestaCorrecta(Pregunta preguntaAux, int racha) {
         System.out.println("¡Correcto! Calculando puntos...");
         if (racha != 0) {
             puntaje.setPuntaje(puntaje.getPuntaje() + preguntaAux.getPuntajeBase() + 2);
@@ -141,16 +171,23 @@ public class Ronda {
         }
         racha++;
         System.out.println("Racha actual: " + racha + " | Puntaje acumulado: " + obtenerPuntaje());
+
+        return racha;
     }
 
 
     // Procesa las respuestas incorrectas, aplicando penalización y reiniciando la racha.
-    private void manejarRespuestaIncorrecta(int racha, RespuestaIncorrecta e) {
+    private int manejarRespuestaIncorrecta(int racha, RespuestaIncorrecta e) {
         System.out.println(e.getMessage());
         puntaje.setPuntaje(puntaje.getPuntaje() - 5);
         System.out.println("Penalización de 5 puntos. Puntaje acumulado: " + obtenerPuntaje());
+        if(racha != 0){
+            System.out.println("¡Racha perdida! Racha restablecida a 0.");
+            racha = 0;
+        }
 
-        System.out.println("¡Racha perdida! Racha restablecida a 0.");
-        racha = 0;
+        return racha;
     }
+
+
 }

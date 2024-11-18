@@ -7,6 +7,7 @@ import Excepciones.Usuario.UsuarioIncorrecto;
 import Modelo.Usuario.Jugador;
 import Modelo.Usuario.Usuario;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class GestionUsuario {
@@ -29,7 +30,7 @@ public class GestionUsuario {
         return usuarios.buscarElemento(usuario);
     }
 
-    // Método login
+    // Metodo login
     public boolean verificarLogin(String nombreUsuario, String contrasenia) throws UsuarioIncorrecto, ContraseniaInconrrecta {
         for (Jugador usuario : usuarios.getElementos()) {
             if (usuario.getNombreUsuario().equalsIgnoreCase(nombreUsuario)) {
@@ -78,6 +79,25 @@ public class GestionUsuario {
             jsonArray.put(usuario.toJson());
         }
         return jsonArray;
+    }
+
+    //metodo para convertir mi jsonArray de usuarios a formato Gestion de usuarios
+
+    public static GestionUsuario toObj(JSONArray jsonArray) {
+        GestionUsuario gestionUsuario = new GestionUsuario();
+
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                Jugador jugador = Jugador.toObj(jsonObject);
+
+                gestionUsuario.agregarUsuario(jugador);
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return gestionUsuario;
     }
 
 
