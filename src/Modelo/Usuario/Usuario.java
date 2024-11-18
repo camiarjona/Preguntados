@@ -53,6 +53,11 @@ public class Usuario {
         return Objects.hash(nombreUsuario, email);
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Usuario: " +
+                "Email: '" + email + '\'' +
+                ", Nombre de usuario: '" + nombreUsuario + '\'' +
+                '}';
+    }
 }
