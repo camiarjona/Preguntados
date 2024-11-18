@@ -27,7 +27,7 @@ public class Jugador extends Usuario implements IJson {
          this.puntajesHistorial.add(puntaje);
       }
    }
-
+   
    public JSONArray toJsonArray() {
       JSONArray jsonArray = new JSONArray();
       for (Puntaje puntaje : puntajesHistorial) {
