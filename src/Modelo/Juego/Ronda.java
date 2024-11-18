@@ -49,15 +49,8 @@ public class Ronda {
 
     public Categoria obtenerCategoria(){
         Random random = new Random();
-        Categoria categoriaAleatoria = null;
         int numeroAleatorio = random.nextInt(6) + 1; //esto es para que se genere un numero del 1 al 6, sin tener en cuenta el 0.
-
-        for(Categoria categoria : Categoria.values()){
-            if(categoria.getId() == numeroAleatorio){
-                categoriaAleatoria = categoria;
-            }
-        }
-        return categoriaAleatoria;
+        return Categoria.obtenerCategoriaPorId(numeroAleatorio);
     }
 
     // Maneja las preguntas de una categoría específica
