@@ -4,6 +4,7 @@ import Excepciones.Preguntas.RespuestaIncorrecta;
 import Gestion.GestionDeElementos;
 import Interfaces.IEvaluable;
 import Interfaces.IObtener;
+import Modelo.Enum.Categoria;
 import org.json.JSONObject;
 
 public class PreguntaMultipleChoice extends Pregunta{
@@ -12,20 +13,28 @@ public class PreguntaMultipleChoice extends Pregunta{
     private GestionDeElementos<String> opciones;
     private String respuestaCorrecta;
 
+    public PreguntaMultipleChoice(String enunciado, Categoria categoria, String respuestaCorrecta) {
+        super(enunciado, categoria);
+        this.opciones = new GestionDeElementos<>();
+        this.respuestaCorrecta = respuestaCorrecta;
+    }
+
     public GestionDeElementos<String> getOpciones() {
         return opciones;
     }
 
+    public void agregarOpcion(String opcion) {
+        opciones.agregarElemento(opcion);
+    }
+
 
     @Override
-    public boolean evaluarRespuesta(String respuesta) throws RespuestaIncorrecta {
-
-        if(!respuestaCorrecta.equalsIgnoreCase(respuesta)){
-            throw new RespuestaIncorrecta("Respuesta Incorrecta");
+    public boolean evaluarRespuesta(String respuesta) throws RespuestaIncorrecta{
+        if(!respuesta.equals(respuestaCorrecta)){
+            throw new RespuestaIncorrecta("Respuesta incorrecta");
         }
         return true;
     }
-
 
     @Override
     public int getPuntajeBase() {
@@ -33,7 +42,7 @@ public class PreguntaMultipleChoice extends Pregunta{
     }
 
     @Override
-    public String mostrarOpciones(){
+   public String mostrarOpciones(){
        StringBuilder op = new StringBuilder();
         int i = 1;
         for(String aux : opciones.getElementos()){
