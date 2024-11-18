@@ -30,74 +30,84 @@ public class Ronda {
         return puntaje;
     }
 
-    //  METODO PARA JUGAR RONDA
-    public void jugarRonda(){
-        Categoria categoriaAux;
-        String mensaje = "";
+
+    // Metodo principal que controla el flujo de las rondas en el juego.
+
+    public void jugarRonda(Scanner scanner) {
+        System.out.println("¡Comienza el juego!");
+        for (int rondaActual = 1; rondaActual <= nroMaxRondas; rondaActual++) {
+            System.out.println("\nRonda " + rondaActual + " de " + nroMaxRondas);
+            Categoria categoriaAux = obtenerCategoria(); // Selección de categoría
+            System.out.println("Categoría seleccionada: " + categoriaAux);
+            jugarPorCategoria(categoriaAux, scanner);
+        }
+        // Finaliza el juego mostrando el puntaje total y guardándolo en el historial del jugador
+        System.out.println("\nFin del juego. Puntaje total acumulado: " + puntaje.getPuntaje());
+        this.jugador.agregarPuntaje(puntaje); // Agregar puntaje al historial del jugador
+    }
+
+
+    public Categoria obtenerCategoria(){
+        Random random = new Random();
+        Categoria categoriaAleatoria = null;
+        int numeroAleatorio = random.nextInt(6) + 1; //esto es para que se genere un numero del 1 al 6, sin tener en cuenta el 0.
+
+        for(Categoria categoria : Categoria.values()){
+            if(categoria.getId() == numeroAleatorio){
+                categoriaAleatoria = categoria;
+            }
+        }
+        return categoriaAleatoria;
+    }
+
+    // Maneja las preguntas de una categoría específica
+    private void jugarPorCategoria(Categoria categoria, Scanner scanner) {
+        List<Pregunta> preguntasDesordenadas = desordenarPreguntas(); // Desordenar preguntas
+
+        for (int preguntaActual = 1; preguntaActual < 4; preguntaActual++) {
+            System.out.println("\nPregunta " + preguntaActual + " de 3 en la categoría " + categoria);
+            procesarPreguntasPorCategoria(preguntasDesordenadas, categoria, scanner); // Procesar preguntas
+        }
+        System.out.println("Fin de la categoría: " + categoria);
+
+    }
+
+    // Desordena la lista de preguntas para añadir variedad al juego.
+    private List<Pregunta> desordenarPreguntas() {
+        List<Pregunta> preguntasDesordenadas = new ArrayList<>(preguntas.getPreguntas());
+        Collections.shuffle(preguntasDesordenadas);
+        return preguntasDesordenadas;
+    }
+
+    // Procesa las preguntas filtradas por categoría, mostrando y evaluando cada una.
+    private void procesarPreguntasPorCategoria(List<Pregunta> preguntasDesordenadas, Categoria categoria, Scanner scanner) {
+        int racha = 0;
+        for (Pregunta preguntaAux : preguntasDesordenadas) {
+            if (preguntaAux.categoria == categoria) {
+                manejarPregunta(preguntaAux, racha, scanner);
+            }
+        }
+    }
+
+    // Maneja una pregunta específica: muestra el enunciado, obtiene la respuesta y la evalúa.
+    private void manejarPregunta(Pregunta preguntaAux, int racha, Scanner scanner) {
         StringBuilder contenido = new StringBuilder();
+        System.out.println(contenido.append(preguntaAux.getEnunciado())
+                .append("\n")
+                .append(preguntaAux.mostrarOpciones()));
+        String respuesta = obtenerRespuestaDelJugador(preguntaAux, scanner);
 
-        for(int j = 0; j < nroMaxRondas ; j++){
-            categoriaAux = obtenerCategoria();
-
-            for (int i = 1; i < 4; i++) {
-                List<Pregunta> preguntasDesordenadas = new ArrayList<>(preguntas.getPreguntas());
-                Collections.shuffle(preguntasDesordenadas);
-                int racha = 0;
-
-                for (Pregunta preguntaAux : preguntasDesordenadas) {
-
-                    if (preguntaAux.categoria == categoriaAux) {
-                        System.out.println(contenido.append(preguntaAux.getEnunciado()).append("\n").append(preguntaAux.mostrarOpciones()).append("\nIngrese la opcion correcta: "));
-                        System.out.println(contenido.toString()); //Se imprime por aca porque ya retornamos un mensaje
-                        String respuesta = obtenerRespuestaDelJugador(preguntaAux);
-
-                        try {
-                            if (preguntaAux.evaluarRespuesta(respuesta)) {
-                                if(racha != 0){
-                                    puntaje.setPuntaje(puntaje.getPuntaje() + preguntaAux.getPuntajeBase() + 2);
-                                }else {
-                                    puntaje.setPuntaje(puntaje.getPuntaje() + preguntaAux.getPuntajeBase());
-                                }
-                                racha++;
-                                System.out.println("¡Respuesta correcta!\n Su puntaje es: " + obtenerPuntaje() + "con una racha de: " + racha + "preguntas correctas!");
-
-                            }
-                        } catch (RespuestaIncorrecta e) {
-                            puntaje.setPuntaje(puntaje.getPuntaje() - 5);
-                            racha = 0;
-                            System.out.println(e.getMessage() + ", Pierde 5 puntos! Su puntaje es: " + obtenerPuntaje() + "Racha perdida!");
-                        }
-                    }
-
-                }
-            }
+        try {
+            preguntaAux.evaluarRespuesta(respuesta); // Si pasa, la respuesta es correcta
+            manejarRespuestaCorrecta(preguntaAux, racha);
+        } catch (RespuestaIncorrecta e) {
+            manejarRespuestaIncorrecta(racha, e);
         }
-         this.jugador.agregarPuntaje(puntaje);
-
     }
 
-    public String obtenerRespuestaDelJugador(Pregunta pregunta){
-        Scanner scanner = new Scanner(System.in);
-        int opcionRespuesta = scanner.nextInt();
-        ArrayList<String> opcionesAux;
-        String respuesta = "";
-
-        if( pregunta instanceof PreguntaMultipleChoice){
-            opcionesAux = ((PreguntaMultipleChoice) pregunta).getOpciones().getElementos(); //me traigo el arraylist correspondiente a las opciones de la pregunta
-            respuesta = opcionesAux.get(opcionRespuesta-1);
-        } else if (pregunta instanceof PreguntaVerdaderoOFalso) {
-            if(opcionRespuesta == 1){
-                respuesta= "Verdadero";
-            }else{
-                respuesta = "Falso";
-            }
-        }
-        return respuesta;
-    }
-
-    //Tratando de modularizar
-    public String obtenerRespuestaDelJugador1(Pregunta pregunta, Scanner scanner){
-        System.out.println("Ingrese una opcion: ");
+    //obtener la respuesta seleccionada por el jugador a una pregunta, ya sea de tipo Multiple Choice o Verdadero o Falso.
+    public String obtenerRespuestaDelJugador(Pregunta pregunta, Scanner scanner){
+        System.out.println("\nIngrese la opcion correcta: ");
         int opcionRespuesta = scanner.nextInt();
         String respuesta = "";
 
@@ -124,17 +134,30 @@ public class Ronda {
         }
     }
 
-    public Categoria obtenerCategoria(){
-        Random random = new Random();
-        Categoria categoriaAleatoria = null;
-        int numeroAleatorio = random.nextInt(6) + 1; //esto es para que se genere un numero del 1 al 6, sin tener en cuenta el 0.
 
-        for(Categoria categoria : Categoria.values()){
-            if(categoria.getId() == numeroAleatorio){
-                categoriaAleatoria = categoria;
-            }
+    // Procesa las respuestas correctas, calculando el puntaje y actualizando la racha.
+    private void manejarRespuestaCorrecta(Pregunta preguntaAux, int racha) {
+        System.out.println("¡Correcto! Calculando puntos...");
+        if (racha != 0) {
+            puntaje.setPuntaje(puntaje.getPuntaje() + preguntaAux.getPuntajeBase() + 2);
+            System.out.println("¡Bonus por racha! Puntos obtenidos: " + (preguntaAux.getPuntajeBase() + 2));
+        } else {
+            puntaje.setPuntaje(puntaje.getPuntaje() + preguntaAux.getPuntajeBase());
+            System.out.println("Puntos obtenidos: " + preguntaAux.getPuntajeBase());
+
         }
-        return categoriaAleatoria;
+        racha++;
+        System.out.println("Racha actual: " + racha + " | Puntaje acumulado: " + obtenerPuntaje());
     }
 
+
+    // Procesa las respuestas incorrectas, aplicando penalización y reiniciando la racha.
+    private void manejarRespuestaIncorrecta(int racha, RespuestaIncorrecta e) {
+        System.out.println(e.getMessage());
+        puntaje.setPuntaje(puntaje.getPuntaje() - 5);
+        System.out.println("Penalización de 5 puntos. Puntaje acumulado: " + obtenerPuntaje());
+
+        System.out.println("¡Racha perdida! Racha restablecida a 0.");
+        racha = 0;
+    }
 }
