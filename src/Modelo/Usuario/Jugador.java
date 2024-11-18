@@ -13,6 +13,14 @@ public class Jugador extends Usuario {
       this.puntajesHistorial = new GestionDeElementos<Puntaje>();
    }
 
+   public GestionDeElementos<Puntaje> getPuntajesHistorial() {
+      return puntajesHistorial;
+   }
+
+   public void setPuntajesHistorial(GestionDeElementos<Puntaje> puntajesHistorial) {
+      this.puntajesHistorial = puntajesHistorial;
+   }
+
    @Override
    public JSONObject toJson() {
       return super.toJson();
