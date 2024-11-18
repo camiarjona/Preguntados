@@ -4,6 +4,7 @@ import Excepciones.Usuario.ContraseniaInconrrecta;
 import Excepciones.Usuario.CorreoExistente;
 import Excepciones.Usuario.UsuarioExistente;
 import Excepciones.Usuario.UsuarioIncorrecto;
+import Modelo.Usuario.Jugador;
 import Modelo.Usuario.Usuario;
 
 public class GestionUsuario {
@@ -45,7 +46,7 @@ public class GestionUsuario {
     public void existeUsuario(String nombreUsuario) throws UsuarioExistente {
         for (Usuario usuario : usuarios.getElementos()) {
             if (usuario.getNombreUsuario().equalsIgnoreCase(nombreUsuario)) {
-                throw new UsuarioExistente("Nombre de usuario existente.");
+                throw new UsuarioExistente("\n\u001B[31mNombre de usuario existente.\u001B[0m");
             }
         }
     }
@@ -53,10 +54,23 @@ public class GestionUsuario {
     public void existeMail(String mail) throws CorreoExistente {
         for (Usuario usuario : usuarios.getElementos()) {
             if (usuario.getEmail().equalsIgnoreCase(mail)) {
-                throw new CorreoExistente("El correo ya se encuentra registrado.");
+                throw new CorreoExistente("\n\u001B[31mEl correo ya se encuentra registrado.\u001B[0m");
             }
         }
     }
+
+
+    //metodo para obtener el jugador una vez inciada la sesion
+    public Jugador obtenerJugadorPorNombre(String nombreUsuario) throws UsuarioIncorrecto {
+        for (Usuario usuario : usuarios.getElementos()) {
+            if (usuario instanceof Jugador && usuario.getNombreUsuario().equals(nombreUsuario)) {
+                return (Jugador) usuario;
+            }
+        }
+        throw new UsuarioIncorrecto("El usuario no existe.");
+    }
+
+
 
 
 
