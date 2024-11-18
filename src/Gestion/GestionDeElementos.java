@@ -5,18 +5,16 @@ import Excepciones.ElementoNoExiste;
 import Interfaces.IJson;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class GestionDeElementos <T>{
 
-   private Set<T> elementos;
+   private ArrayList<T> elementos;
 
     public GestionDeElementos() {
-        this.elementos = new HashSet<T>();
+        this.elementos = new ArrayList<>();
     }
 
-    public Set<T> getElementos() {
+    public ArrayList<T> getElementos() {
         return elementos;
     }
 
@@ -25,8 +23,9 @@ public class GestionDeElementos <T>{
      * @param t el elemento que se desea agregar a la lista.
      */
     public boolean agregarElemento(T t) throws ElementoDuplicado {
-        if(elementos.add(t)){
-            return true;
+        if(!elementos.contains(t)){
+             elementos.add(t);
+             return true;
         }
         else{
             throw new ElementoDuplicado("Elemento duplicado, no se puede añadir");
