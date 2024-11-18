@@ -39,7 +39,7 @@ public class Ronda {
         for(int j = 0; j < nroMaxRondas ; j++){
             categoriaAux = obtenerCategoria();
 
-            for (int i = 0; i < 4; i++) {
+            for (int i = 1; i < 4; i++) {
                 List<Pregunta> preguntasDesordenadas = new ArrayList<>(preguntas.getPreguntas());
                 Collections.shuffle(preguntasDesordenadas);
                 int racha = 0;
