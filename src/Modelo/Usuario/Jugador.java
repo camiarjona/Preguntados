@@ -22,11 +22,20 @@ public class Jugador extends Usuario implements IJson {
       this.puntajesHistorial = new ArrayList<>();
    }
 
+   public ArrayList<Puntaje> getPuntajesHistorial() {
+      return puntajesHistorial;
+   }
+
+   public void setPuntajesHistorial(ArrayList<Puntaje> puntajesHistorial) {
+      this.puntajesHistorial = puntajesHistorial;
+   }
+
    public void agregarPuntaje(Puntaje puntaje) {
       if(puntaje != null) {
-         this.puntajesHistorial.add(puntaje);
+         puntajesHistorial.add(puntaje);
       }
    }
+
 
    public JSONArray toJsonArray() {
       JSONArray jsonArray = new JSONArray();
@@ -34,6 +43,12 @@ public class Jugador extends Usuario implements IJson {
          jsonArray.put(puntaje.toJson());
       }
       return jsonArray;
+   }
+
+   @Override
+   public String toString() {
+      return super.toString() + "Historial de puntajes:" + puntajesHistorial +
+              "} ";
    }
 
    @Override
@@ -73,6 +88,8 @@ public class Jugador extends Usuario implements IJson {
 
       return nuevo;
    }
+
+
 
 
 }
