@@ -30,12 +30,12 @@ public class Jugador extends Usuario implements IJson {
       this.puntajesHistorial = puntajesHistorial;
    }
 
+   //metodo agregar puntaje
    public void agregarPuntaje(Puntaje puntaje) {
       if(puntaje != null) {
          puntajesHistorial.add(puntaje);
       }
    }
-
 
    public JSONArray toJsonArray() {
       JSONArray jsonArray = new JSONArray();
@@ -45,10 +45,23 @@ public class Jugador extends Usuario implements IJson {
       return jsonArray;
    }
 
+   //metodo mostrar historial
+   public String mostrarHistorial() {
+      StringBuilder sb = new StringBuilder();
+      int i = 1;
+      for (Puntaje puntaje : puntajesHistorial) {
+         sb.append("\nPartida número ").append(i).append(". ").append(puntaje.toString()).append("\n");
+         i++;
+      }
+      return sb.toString();
+   }
+
+   //to string jugador
+
+
    @Override
    public String toString() {
-      return super.toString() + "Historial de puntajes:" + puntajesHistorial +
-              "} ";
+      return super.toString() + "\nPuntajes: " + mostrarHistorial();
    }
 
    @Override
