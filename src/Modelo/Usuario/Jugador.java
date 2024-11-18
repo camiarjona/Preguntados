@@ -37,14 +37,6 @@ public class Jugador extends Usuario implements IJson {
       }
    }
 
-   public JSONArray toJsonArray() {
-      JSONArray jsonArray = new JSONArray();
-      for (Puntaje puntaje : puntajesHistorial) {
-         jsonArray.put(puntaje.toJson());
-      }
-      return jsonArray;
-   }
-
    //metodo mostrar historial
    public String mostrarHistorial() {
       StringBuilder sb = new StringBuilder();
@@ -57,11 +49,18 @@ public class Jugador extends Usuario implements IJson {
    }
 
    //to string jugador
-
-
    @Override
    public String toString() {
       return super.toString() + "\nPuntajes: " + mostrarHistorial();
+   }
+
+   //Metodo para convertir el historial de puntajes a un JSONArray
+   public JSONArray toJsonArray() {
+      JSONArray jsonArray = new JSONArray();
+      for (Puntaje puntaje : puntajesHistorial) {
+         jsonArray.put(puntaje.toJson());
+      }
+      return jsonArray;
    }
 
    @Override
