@@ -1,20 +1,14 @@
 package Modelo.Juego;
 
 import Interfaces.IJson;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Puntaje implements IJson<Puntaje> {
+import java.util.jar.JarException;
+
+public class Puntaje implements IJson {
 
     private int puntaje;
-
-
-    public Puntaje(int puntaje) {
-        this.puntaje = puntaje;
-    }
-
-    public int getPuntaje() {
-        return puntaje;
-    }
 
     public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
@@ -25,8 +19,13 @@ public class Puntaje implements IJson<Puntaje> {
         return null;
     }
 
-    @Override
-    public Puntaje toObj() {
-        return null;
-    }
+   public static Puntaje fromJson(JSONObject j) {
+        Puntaje puntaje = new Puntaje();
+        try {
+            puntaje.setPuntaje(j.getInt("Puntaje"));
+        }catch (JSONException e) {
+           e.printStackTrace();
+        }
+       return puntaje;
+   }
 }

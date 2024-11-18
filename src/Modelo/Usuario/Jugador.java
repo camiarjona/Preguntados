@@ -1,16 +1,39 @@
 package Modelo.Usuario;
 
 import Gestion.GestionDeElementos;
+import Interfaces.IJson;
 import Modelo.Juego.Puntaje;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Jugador extends Usuario {
+import java.util.ArrayList;
 
-   private GestionDeElementos<Puntaje> puntajesHistorial;
+public class Jugador extends Usuario implements IJson {
+
+   private ArrayList<Puntaje> puntajesHistorial;
 
    public Jugador(String nombreUsuario, String email, String contrasenia) {
       super(nombreUsuario, email, contrasenia);
-      this.puntajesHistorial = new GestionDeElementos<Puntaje>();
+      this.puntajesHistorial = new ArrayList<>();
+   }
+
+   public Jugador() {
+      this.puntajesHistorial = new ArrayList<>();
+   }
+
+   public void agregarPuntaje(Puntaje puntaje) {
+      if(puntaje != null) {
+         this.puntajesHistorial.add(puntaje);
+      }
+   }
+   
+   public JSONArray toJsonArray() {
+      JSONArray jsonArray = new JSONArray();
+      for (Puntaje puntaje : puntajesHistorial) {
+         jsonArray.put(puntaje.toJson());
+      }
+      return jsonArray;
    }
 
    public GestionDeElementos<Puntaje> getPuntajesHistorial() {
@@ -23,11 +46,41 @@ public class Jugador extends Usuario {
 
    @Override
    public JSONObject toJson() {
-      return super.toJson();
+      JSONObject json = new JSONObject();
+      try{
+         json.put("NombreUsuario", nombreUsuario);
+         json.put("Email", email);
+         json.put("Contrasenia", contrasenia);
+         json.put("HistorialPuntajes", toJsonArray());
+      }catch (JSONException e){
+         e.printStackTrace();
+      }
+      return json;
    }
 
-   @Override
-   public Usuario toObj() {
-      return super.toObj();
+
+   public static Jugador toObj(JSONObject json) {
+      Jugador nuevo = new Jugador();
+      try{
+         nuevo.setNombreUsuario(json.getString("NombreUsuario"));
+         nuevo.setEmail(json.getString("Email"));
+         nuevo.setContrasenia(json.getString("Contrasenia"));
+
+         JSONArray puntajes = json.getJSONArray("HistorialPuntajes");
+
+         for (int i = 0; i < puntajes.length(); i++) {
+            JSONObject puntaje = puntajes.getJSONObject(i);
+            nuevo.agregarPuntaje(Puntaje.fromJson(puntaje));
+         }
+
+      }catch (JSONException e){
+         e.printStackTrace();
+      }catch(RuntimeException e){
+         throw new RuntimeException("Error al procesar los puntajes", e);
+      }
+
+      return nuevo;
    }
+
+
 }

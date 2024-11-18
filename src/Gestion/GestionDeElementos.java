@@ -1,53 +1,56 @@
 package Gestion;
 
 import Excepciones.ElementoDuplicado;
+import Excepciones.ElementoNoExiste;
 import Interfaces.IJson;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GestionDeElementos <T>{
 
-   private ArrayList<T> elementos;
+   private Set<T> elementos;
 
     public GestionDeElementos() {
-        this.elementos = new ArrayList<>();
+        this.elementos = new HashSet<T>();
     }
 
-    public ArrayList<T> getElementos() {
+    public Set<T> getElementos() {
         return elementos;
     }
 
     /**
      * Agrega un elemento a la lista si no está presente previamente.
      * @param t el elemento que se desea agregar a la lista.
-     * @throws ElementoDuplicado si el elemento ya se encuentra en la lista
      */
-    public void agregarElemento(T t) throws ElementoDuplicado {
-        if(elementos.contains(t)) {
-            throw new ElementoDuplicado("El elemento ya se encuentra en la lista");
-        }
-        elementos.add(t);
-    }
-
-
-    public void eliminarElemento (T t) {
-        if(elementos.contains(t)) {
-            elementos.remove(t);
+    public boolean agregarElemento(T t) throws ElementoDuplicado {
+        if(elementos.add(t)){
+            return true;
         }
         else{
-            throw new IllegalArgumentException("El elemento no se encuentra en la lista");
+            throw new ElementoDuplicado("Elemento duplicado, no se puede añadir");
         }
     }
 
-    public T buscarElemento(T t) {
+    public boolean eliminarElemento (T t) throws ElementoNoExiste {
+        if(elementos.remove(t)) {
+            return true;
+        }
+        else{
+            throw new ElementoNoExiste("El elemento no se encuentra en la lista");
+        }
+    }
+
+    public boolean buscarElemento(T t) throws ElementoNoExiste {
             if(elementos.isEmpty()) {
                 throw new IllegalArgumentException("La lista no contiene elementos");
             }
             if(elementos.contains(t)) {
-                return elementos.get(elementos.indexOf(t));
+                return true;
             }
             else{
-                throw new IllegalArgumentException("El elemento no se encuentra en la lista");
+                throw new ElementoNoExiste("El elemento no se encuentra en la lista");
             }
     }
 }
