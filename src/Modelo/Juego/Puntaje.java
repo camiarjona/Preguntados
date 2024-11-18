@@ -43,7 +43,14 @@ public class Puntaje implements IJson {
 
     @Override
     public JSONObject toJson() {
-        return null;
+        JSONObject objeto = new JSONObject();
+        try{
+            objeto.put("Puntaje", puntaje);
+            objeto.put("Fecha", fecha);
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+        return objeto;
     }
 
    public static Puntaje fromJson(JSONObject j) {

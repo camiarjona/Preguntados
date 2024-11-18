@@ -20,4 +20,14 @@ public enum Categoria {
     public int getId() {
         return id;
     }
+
+    // Método estático para obtener la categoría por su id
+    public static Categoria obtenerCategoriaPorId(int id) {
+        for (Categoria categoria : Categoria.values()) {
+            if (categoria.getId() == id) {
+                return categoria; // Si encontramos el id, retornamos la categoría correspondiente
+            }
+        }
+        throw new IllegalArgumentException("ID no válido: " + id); // Si no se encuentra el id, lanzamos una excepción
+    }
 }
