@@ -9,16 +9,35 @@ import java.util.Objects;
 
 public abstract class Pregunta implements IJson, IEvaluable, IObtener {
 
+    protected  static  int idAuto = 1;
+    protected int id;
     protected String enunciado;
     protected Categoria categoria;
 
     public Pregunta(String enunciado, Categoria categoria) {
+        this.id = idAuto++;
         this.enunciado = enunciado;
         this.categoria = categoria;
     }
 
+    public Pregunta() {
+        this.id = idAuto++;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     public String getEnunciado() {
         return enunciado;
+    }
+
+    public void setEnunciado(String enunciado) {
+        this.enunciado = enunciado;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     public String mostrarOpciones(){

@@ -5,6 +5,9 @@ import Gestion.GestionDeElementos;
 import Interfaces.IEvaluable;
 import Interfaces.IObtener;
 import Modelo.Enum.Categoria;
+import Modelo.Usuario.Jugador;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PreguntaMultipleChoice extends Pregunta{
@@ -19,9 +22,24 @@ public class PreguntaMultipleChoice extends Pregunta{
         this.respuestaCorrecta = respuestaCorrecta;
     }
 
+    public PreguntaMultipleChoice() {
+        super();
+        this.opciones = new GestionDeElementos<>();
+    }
+
+
+    public void setOpciones(GestionDeElementos<String> opciones) {
+        this.opciones = opciones;
+    }
+
+    public void setRespuestaCorrecta(String respuestaCorrecta) {
+        this.respuestaCorrecta = respuestaCorrecta;
+    }
+
     public GestionDeElementos<String> getOpciones() {
         return opciones;
     }
+
 
     public void agregarOpcion(String opcion) {
         opciones.agregarElemento(opcion);
@@ -52,10 +70,55 @@ public class PreguntaMultipleChoice extends Pregunta{
         return op.toString();
     }
 
+    public JSONArray toJsonArray() {
+
+            JSONArray jsonArray = new JSONArray();
+            for (String opcion  : opciones.getElementos()) {
+                jsonArray.put(opcion);
+            }
+            return jsonArray;
+        }
+
     @Override
     public JSONObject toJson() {
-        return null;
+        JSONObject json = new JSONObject();
+
+        try{
+            json.put("Opciones", toJsonArray());
+            json.put("RespuestaCorrecta", respuestaCorrecta);
+            json.put("Enunciado", enunciado);
+            json.put("Categoria", categoria);
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+    public static PreguntaMultipleChoice jsonToObj(JSONObject json){
+
+            PreguntaMultipleChoice objPregunta = new PreguntaMultipleChoice();
+
+            try {
+                JSONArray array = json.getJSONArray("Opciones");
+                for(int i = 0; i < array.length(); i++){
+
+                    String opcion = array.getString(i);
+                    objPregunta.agregarOpcion(opcion);
+                }
+
+               objPregunta.setRespuestaCorrecta(json.getString("RespuestaCorrecta"));
+                objPregunta.setCategoria(Categoria.valueOf(json.getString("Categoria")));
+                objPregunta.setEnunciado(json.getString("Enunciado"));
+
+            }catch (JSONException e) {
+                e.printStackTrace();
+            }
+        return objPregunta;
     }
 
 
-}
+    }
+
+
+

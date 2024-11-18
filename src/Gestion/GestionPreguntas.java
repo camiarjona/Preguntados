@@ -41,4 +41,18 @@ public class GestionPreguntas {
         }
         return sb.toString();
     }
+
+    public boolean eliminarPreguntaPorId(int id) {
+
+        boolean eliminar = false;
+
+        for (Pregunta p : preguntas.getElementos()) {
+            if (p.getId() == id) {
+                preguntas.eliminarElemento(p);
+                eliminar = true;
+            }
+
+        }
+        return eliminar;
+    }
 }
