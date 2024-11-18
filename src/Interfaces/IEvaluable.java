@@ -2,5 +2,7 @@ package Interfaces;
 
 public interface IEvaluable {
 
-    boolean evaluarRespuesta(String respuesta);
-}
+    default boolean evaluarRespuesta(String respuesta){
+        return false;
+    }
+    }

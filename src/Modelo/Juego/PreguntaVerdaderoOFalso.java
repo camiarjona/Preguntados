@@ -1,14 +1,20 @@
 package Modelo.Juego;
 
-import Excepciones.RespuestaIncorrecta;
+import Excepciones.Preguntas.RespuestaIncorrecta;
 import Interfaces.IEvaluable;
 import Interfaces.IObtener;
+import Modelo.Enum.Categoria;
 import org.json.JSONObject;
 
-public class PreguntaVerdaderoOFalso extends Pregunta implements IEvaluable, IObtener {
+public class PreguntaVerdaderoOFalso extends Pregunta   {
 
     private static final int puntajeBase = 10;
     private String respuestaCorrecta;
+
+    public PreguntaVerdaderoOFalso(String enunciado, Categoria categoria, String respuestaCorrecta) {
+        super(enunciado, categoria);
+        this.respuestaCorrecta = respuestaCorrecta;
+    }
 
 
     @Override
@@ -41,8 +47,5 @@ public class PreguntaVerdaderoOFalso extends Pregunta implements IEvaluable, IOb
         return null;
     }
 
-    @Override
-    public Pregunta toObj() {
-        return null;
-    }
+
 }

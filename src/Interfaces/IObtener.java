@@ -2,6 +2,8 @@ package Interfaces;
 
 public interface IObtener {
 
-    int getPuntajeBase();
-    String mostrarOpciones();
+    default int getPuntajeBase() {
+        return 0;
+    }
+
 }

@@ -1,64 +1,104 @@
 package Gestion;
 
+import Excepciones.Usuario.ContraseniaInconrrecta;
+import Excepciones.Usuario.CorreoExistente;
+import Excepciones.Usuario.UsuarioExistente;
+import Excepciones.Usuario.UsuarioIncorrecto;
 import Modelo.Usuario.Jugador;
 import Modelo.Usuario.Usuario;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class GestionUsuario {
 
-    private GestionDeElementos<Usuario> usuarios;
+    private GestionDeElementos<Jugador> usuarios;
 
-    ///Constructor
     public GestionUsuario() {
         usuarios = new GestionDeElementos<>();
     }
 
-    ///Metodos
-    public void agregarUsuario(Usuario usuario) {
+    public void agregarUsuario(Jugador usuario) {
         usuarios.agregarElemento(usuario);
     }
 
-    public void eliminarUsuario(Usuario usuario) {
+    public void eliminarUsuario(Jugador usuario) {
         usuarios.eliminarElemento(usuario);
     }
 
-    public Usuario buscarUsuario(Usuario usuario) {
+    public boolean buscarUsuario(Jugador usuario) {
         return usuarios.buscarElemento(usuario);
     }
 
-
-    //crear usuario admin
-    //metodos para vericiar existencia
-    //si no hay coincidencias, crear usuario
-
-    //Se va a crear una excepcion que sea error al crear jugador
-    public String crearJugador(String nombreUsuario, String email, String contrasenia)
-    {
-        String mensaje = " ";
-        Jugador nuevoJugador = new Jugador(nombreUsuario, email, contrasenia);
-
-        Boolean control = verificarExistenciaJugador(nuevoJugador.getNombreUsuario());
-
-        if(control != true)
-        {
-            agregarUsuario(nuevoJugador);
-            return mensaje = "El jugador fue creado exitosamente! ";
-        }
-
-        return mensaje = "El jugador no pudo ser creado! ";
-    }
-
-    ///Este metodo es dudoso, esta sujeto a posibles cambios debido al uso de return. Atte, pepo
-    public boolean verificarExistenciaJugador(String nombreUsuario)
-    {
-        String mensaje = " ";
-        for (Usuario usuario : usuarios.obtenerTodosLosElementos()) {
-            if (usuario.getNombreUsuario().equals(nombreUsuario) ) {
-                return true;
+    // Metodo login
+    public boolean verificarLogin(String nombreUsuario, String contrasenia) throws UsuarioIncorrecto, ContraseniaInconrrecta {
+        for (Jugador usuario : usuarios.getElementos()) {
+            if (usuario.getNombreUsuario().equalsIgnoreCase(nombreUsuario)) {
+                // Si el nombre de usuario es correcto, verifico la contraseña
+                if (usuario.getContrasenia().equals(contrasenia)) {
+                    return true; //Si ambos coinciden, retorno verdadero
+                } else {
+                    throw new ContraseniaInconrrecta("Contraseña incorrecta.");
+                }
             }
         }
-        return false;
+        // Si sale del bucle, significa que el usuario es incorrecto
+        throw new UsuarioIncorrecto("Nombre de usuario incorrecto.");
     }
 
+    public void existeUsuario(String nombreUsuario) throws UsuarioExistente {
+        for (Jugador usuario : usuarios.getElementos()) {
+            if (usuario.getNombreUsuario().equalsIgnoreCase(nombreUsuario)) {
+                throw new UsuarioExistente("\n\u001B[31mNombre de usuario existente.\u001B[0m");
+            }
+        }
+    }
+
+    public void existeMail(String mail) throws CorreoExistente {
+        for (Jugador usuario : usuarios.getElementos()) {
+            if (usuario.getEmail().equalsIgnoreCase(mail)) {
+                throw new CorreoExistente("\n\u001B[31mEl correo ya se encuentra registrado.\u001B[0m");
+            }
+        }
+    }
+
+    //metodo para obtener el jugador una vez inciada la sesion
+    public Jugador obtenerJugadorPorNombre(String nombreUsuario) throws UsuarioIncorrecto {
+        for (Jugador usuario : usuarios.getElementos()) {
+            if (usuario instanceof Jugador && usuario.getNombreUsuario().equals(nombreUsuario)) {
+                return (Jugador) usuario;
+            }
+        }
+        throw new UsuarioIncorrecto("El usuario no existe.");
+    }
+
+    //metodo para convertir mi lista de usuarios a formato json
+    public JSONArray usuariosAJson(){
+        JSONArray jsonArray = new JSONArray();
+        for (Jugador usuario : usuarios.getElementos()) {
+            jsonArray.put(usuario.toJson());
+        }
+        return jsonArray;
+    }
+
+    //metodo para convertir mi jsonArray de usuarios a formato Gestion de usuarios
+
+    public static GestionUsuario toObj(JSONArray jsonArray) {
+        GestionUsuario gestionUsuario = new GestionUsuario();
+
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                Jugador jugador = Jugador.toObj(jsonObject);
+
+                gestionUsuario.agregarUsuario(jugador);
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return gestionUsuario;
+    }
 
 
 }
