@@ -5,14 +5,18 @@ import Excepciones.Usuario.ContraseniaInconrrecta;
 import Excepciones.Usuario.CorreoExistente;
 import Excepciones.Usuario.UsuarioExistente;
 import Excepciones.Usuario.UsuarioIncorrecto;
+import Gestion.GestionDeElementos;
 import Gestion.GestionPreguntas;
 import Gestion.GestionUsuario;
 import Modelo.Enum.Categoria;
 import Modelo.Juego.Pregunta;
 import Modelo.Juego.PreguntaMultipleChoice;
 import Modelo.Juego.PreguntaVerdaderoOFalso;
+import Modelo.Juego.Ronda;
 import Modelo.Usuario.Jugador;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Menu {
@@ -20,17 +24,195 @@ public class Menu {
     private static GestionUsuario gestionUsuario;
     private static GestionPreguntas gestionPreguntas;
     private Jugador jugadorAutenticado;
+    private Ronda ronda;
 
     public Menu(){
         gestionUsuario = new GestionUsuario();
         gestionPreguntas = new GestionPreguntas();
-        jugadorAutenticado = null;
+        ronda = new Ronda();
     }
 
     //metodo para mostrar el menu
     public void mostrarMenu(){
         Scanner sc = new Scanner(System.in);
         int opcion;
+
+        PreguntaMultipleChoice pregunta = new PreguntaMultipleChoice("Cuantos mundiales gano argentina?", Categoria.DEPORTE, "Tres");
+        pregunta.agregarOpcion("Tres");
+        pregunta.agregarOpcion("Dos");
+        pregunta.agregarOpcion("Uno");
+        pregunta.agregarOpcion("Seis");
+
+        PreguntaMultipleChoice historiaMC1 = new PreguntaMultipleChoice(
+                "¿En qué año ocurrió la caída del Imperio Romano de Occidente?",
+                Categoria.HISTORIA,
+                "476 d.C."
+        );
+        historiaMC1.agregarOpcion("395 d.C.");
+        historiaMC1.agregarOpcion("476 d.C.");
+        historiaMC1.agregarOpcion("1492 d.C.");
+        historiaMC1.agregarOpcion("800 d.C.");
+
+        PreguntaMultipleChoice historiaMC2 = new PreguntaMultipleChoice(
+                "¿Quién fue el líder militar durante la guerra de independencia de los Estados Unidos?",
+                Categoria.HISTORIA,
+                "George Washington"
+        );
+        historiaMC2.agregarOpcion("George Washington");
+        historiaMC2.agregarOpcion("Thomas Jefferson");
+        historiaMC2.agregarOpcion("Benjamin Franklin");
+        historiaMC2.agregarOpcion("John Adams");
+
+        PreguntaMultipleChoice historiaMC3 = new PreguntaMultipleChoice(
+                "¿Qué imperio conquistó la antigua ciudad de Cartago?",
+                Categoria.HISTORIA,
+                "Imperio Romano"
+        );
+        historiaMC3.agregarOpcion("Imperio Romano");
+        historiaMC3.agregarOpcion("Imperio Egipcio");
+        historiaMC3.agregarOpcion("Imperio Persa");
+        historiaMC3.agregarOpcion("Imperio Griego");
+
+        PreguntaVerdaderoOFalso historiaVF1 = new PreguntaVerdaderoOFalso(
+                "La Revolución Francesa comenzó en 1800.",
+                Categoria.HISTORIA, "Falso");
+
+        PreguntaVerdaderoOFalso historiaVF2 = new PreguntaVerdaderoOFalso(
+                "El Imperio Romano existió durante más de 500 años.",
+                Categoria.HISTORIA, "Verdadero"
+        );
+
+        PreguntaVerdaderoOFalso historiaVF3 = new PreguntaVerdaderoOFalso(
+                "Napoleón Bonaparte nació en Inglaterra.",
+                Categoria.HISTORIA, "Falso"
+        );
+
+        PreguntaMultipleChoice geografiaMC1 = new PreguntaMultipleChoice(
+                "¿Cuál es el río más largo del mundo?",
+                Categoria.GEOGRAFIA,
+                "Amazonas"
+        );
+        geografiaMC1.agregarOpcion("Amazonas");
+        geografiaMC1.agregarOpcion("Nilo");
+        geografiaMC1.agregarOpcion("Yangtsé");
+        geografiaMC1.agregarOpcion("Misisipi");
+
+        PreguntaMultipleChoice geografiaMC2 = new PreguntaMultipleChoice(
+                "¿En qué continente se encuentra el desierto del Sahara?",
+                Categoria.GEOGRAFIA,
+                "África"
+        );
+        geografiaMC2.agregarOpcion("Asia");
+        geografiaMC2.agregarOpcion("África");
+        geografiaMC2.agregarOpcion("América");
+        geografiaMC2.agregarOpcion("Australia");
+
+        PreguntaMultipleChoice geografiaMC3 = new PreguntaMultipleChoice(
+                "¿Qué país tiene la mayor cantidad de islas en el mundo?",
+                Categoria.GEOGRAFIA,
+                "Canadá"
+        );
+        geografiaMC3.agregarOpcion("Canadá");
+        geografiaMC3.agregarOpcion("Suecia");
+        geografiaMC3.agregarOpcion("Indonesia");
+        geografiaMC3.agregarOpcion("Japón");
+
+        PreguntaVerdaderoOFalso geografiaVF1 = new PreguntaVerdaderoOFalso(
+                "La capital de Canadá es Montreal.",
+                Categoria.GEOGRAFIA,
+                "Falso"
+        );
+
+        PreguntaVerdaderoOFalso geografiaVF2 = new PreguntaVerdaderoOFalso(
+                "El Monte Everest es la montaña más alta del mundo.",
+                Categoria.GEOGRAFIA,
+                "Verdadero"
+        );
+
+        PreguntaVerdaderoOFalso geografiaVF3 = new PreguntaVerdaderoOFalso(
+                "El Amazonas se encuentra en Asia.",
+                Categoria.GEOGRAFIA,
+                "Falso"
+        );
+
+        PreguntaMultipleChoice entretenimientoMC1 = new PreguntaMultipleChoice(
+                "¿Quién ganó el Oscar a Mejor Película en 2020?",
+                Categoria.ENTRETENIMIENTO,
+                "Parasite"
+        );
+        entretenimientoMC1.agregarOpcion("Joker");
+        entretenimientoMC1.agregarOpcion("Parasite");
+        entretenimientoMC1.agregarOpcion("1917");
+        entretenimientoMC1.agregarOpcion("Once Upon a Time in Hollywood");
+
+        PreguntaMultipleChoice entretenimientoMC2 = new PreguntaMultipleChoice(
+                "¿Quién interpretó a Jack Dawson en la película 'Titanic'?",
+                Categoria.ENTRETENIMIENTO,
+                "Leonardo DiCaprio"
+        );
+        entretenimientoMC2.agregarOpcion("Brad Pitt");
+        entretenimientoMC2.agregarOpcion("Leonardo DiCaprio");
+        entretenimientoMC2.agregarOpcion("Tom Cruise");
+        entretenimientoMC2.agregarOpcion("Johnny Depp");
+
+        PreguntaMultipleChoice entretenimientoMC3 = new PreguntaMultipleChoice(
+                "¿Cuál es el nombre de la película que protagonizó Will Smith como un genio en 2019?",
+                Categoria.ENTRETENIMIENTO,
+                "Aladdin"
+        );
+        entretenimientoMC3.agregarOpcion("Aladdin");
+        entretenimientoMC3.agregarOpcion("Men in Black");
+        entretenimientoMC3.agregarOpcion("The Pursuit of Happyness");
+        entretenimientoMC3.agregarOpcion("I Am Legend");
+
+        PreguntaVerdaderoOFalso entretenimientoVF1 = new PreguntaVerdaderoOFalso(
+                "La película 'Titanic' fue dirigida por Steven Spielberg.",
+                Categoria.ENTRETENIMIENTO,
+                "Falso"
+        );
+
+        PreguntaVerdaderoOFalso entretenimientoVF2 = new PreguntaVerdaderoOFalso(
+                "La saga de 'Harry Potter' está basada en libros de J.R.R. Tolkien.",
+                Categoria.ENTRETENIMIENTO,
+                "Falso"
+        );
+
+        PreguntaVerdaderoOFalso entretenimientoVF3 = new PreguntaVerdaderoOFalso(
+                "La película 'Avatar' se estrenó en 2009.",
+                Categoria.ENTRETENIMIENTO,
+                "Verdadero"
+        );
+
+        try{
+            gestionPreguntas.agregarPregunta(historiaMC1);
+            gestionPreguntas.agregarPregunta(historiaMC2);
+            gestionPreguntas.agregarPregunta(historiaMC3);
+
+            gestionPreguntas.agregarPregunta(historiaVF1);
+            gestionPreguntas.agregarPregunta(historiaVF2);
+            gestionPreguntas.agregarPregunta(historiaVF3);
+
+            gestionPreguntas.agregarPregunta(geografiaMC1);
+            gestionPreguntas.agregarPregunta(geografiaMC2);
+            gestionPreguntas.agregarPregunta(geografiaMC3);
+
+//            gestionPreguntas.agregarPregunta(geografiaVF1);
+//            gestionPreguntas.agregarPregunta(geografiaVF2);
+//            gestionPreguntas.agregarPregunta(geografiaVF3);
+
+            gestionPreguntas.agregarPregunta(entretenimientoMC1);
+            gestionPreguntas.agregarPregunta(entretenimientoMC2);
+            gestionPreguntas.agregarPregunta(entretenimientoMC3);
+
+            gestionPreguntas.agregarPregunta(entretenimientoVF1);
+            gestionPreguntas.agregarPregunta(entretenimientoVF2);
+            gestionPreguntas.agregarPregunta(entretenimientoVF3);
+            gestionPreguntas.agregarPregunta(entretenimientoVF3);
+
+        }catch (ElementoDuplicado e){
+            System.out.println(e.getMessage());
+        }
+
 
         do{
             imprimirMenuPrincipal();
@@ -90,10 +272,12 @@ public class Menu {
 
             switch (opcion){
                 case 1:
-                    //inicar juego
+                    ronda.setJugador(jugadorAutenticado);
+                    ronda.setPreguntas(gestionPreguntas);
+                    ronda.jugarRonda(sc);
                     break;
                 case 2:
-                    jugadorAutenticado.mostrarHistorial();
+                    System.out.println(jugadorAutenticado.mostrarHistorial());
                     break;
                 case 3:
                     System.out.println("Regresando al menu principal...");
@@ -259,6 +443,7 @@ public class Menu {
         String respuesta = sc.nextLine();
 
         PreguntaMultipleChoice nueva = new PreguntaMultipleChoice(enunciado, categoria , respuesta);
+        nueva.agregarOpcion(respuesta);
 
         System.out.println("Agregue las opciones: ");
         agregarOpcionesMC(sc, nueva);
@@ -291,6 +476,7 @@ public class Menu {
                 seguirAgregando = false;  // Salir del bucle si la respuesta es 'no'
             }
         }
+        Collections.shuffle(nueva.getOpciones().getElementos());
     }
 
 
