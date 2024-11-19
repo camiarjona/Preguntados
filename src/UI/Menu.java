@@ -1,22 +1,21 @@
 package UI;
 
 import Excepciones.ElementoDuplicado;
+import Excepciones.ElementoNoExiste;
 import Excepciones.Usuario.ContraseniaInconrrecta;
 import Excepciones.Usuario.CorreoExistente;
 import Excepciones.Usuario.UsuarioExistente;
 import Excepciones.Usuario.UsuarioIncorrecto;
-import Gestion.GestionDeElementos;
 import Gestion.GestionPreguntas;
 import Gestion.GestionUsuario;
 import Modelo.Enum.Categoria;
-import Modelo.Juego.Pregunta;
 import Modelo.Juego.PreguntaMultipleChoice;
 import Modelo.Juego.PreguntaVerdaderoOFalso;
-import Modelo.Juego.Ronda;
+import Modelo.Juego.Juego;
 import Modelo.Usuario.Jugador;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
@@ -24,18 +23,21 @@ public class Menu {
     private static GestionUsuario gestionUsuario;
     private static GestionPreguntas gestionPreguntas;
     private Jugador jugadorAutenticado;
-    private Ronda ronda;
+    private Juego juego;
 
     public Menu(){
         gestionUsuario = new GestionUsuario();
         gestionPreguntas = new GestionPreguntas();
-        ronda = new Ronda();
+        juego = new Juego();
+
+        //cargar usuarios desde el json
+        gestionUsuario.cargarUsuariosDesdeJson("usuarios.json");
     }
 
     //metodo para mostrar el menu
     public void mostrarMenu(){
         Scanner sc = new Scanner(System.in);
-        int opcion;
+        int opcion = -1;
 
         PreguntaMultipleChoice pregunta = new PreguntaMultipleChoice("Cuantos mundiales gano argentina?", Categoria.DEPORTE, "Tres");
         pregunta.agregarOpcion("Tres");
@@ -196,9 +198,9 @@ public class Menu {
             gestionPreguntas.agregarPregunta(geografiaMC2);
             gestionPreguntas.agregarPregunta(geografiaMC3);
 
-//            gestionPreguntas.agregarPregunta(geografiaVF1);
-//            gestionPreguntas.agregarPregunta(geografiaVF2);
-//            gestionPreguntas.agregarPregunta(geografiaVF3);
+            gestionPreguntas.agregarPregunta(geografiaVF1);
+            gestionPreguntas.agregarPregunta(geografiaVF2);
+            gestionPreguntas.agregarPregunta(geografiaVF3);
 
             gestionPreguntas.agregarPregunta(entretenimientoMC1);
             gestionPreguntas.agregarPregunta(entretenimientoMC2);
@@ -216,29 +218,39 @@ public class Menu {
 
         do{
             imprimirMenuPrincipal();
-            opcion = sc.nextInt();
-            sc.nextLine();
+            opcion = leerOpcionValida(sc);
+                sc.nextLine();
+
+                switch (opcion){
+                    case 1:
+                        iniciarSesion(sc);
+                        gestionUsuario.guardarUsuarios("usuarios.json");
+                        break;
+                    case 2:
+                        registrarUsuario(sc);
+                        break;
+                    case 3:
+                        System.out.println("Saliendo... Hasta la próxima! \uD83D\uDC4B");
+                        break;
+                    default:
+                        System.out.println("⚠️Opción no válida. Por favor, intente nuevamente.");
+                        break;
+                }
 
 
-            switch (opcion){
-                case 1:
-                    iniciarSesion(sc);
-                    break;
-                case 2:
-                    registrarUsuario(sc);
-                    break;
-                case 3:
-                    System.out.println("Saliendo... Hasta la próxima! \uD83D\uDC4B");
-                    break;
-                default:
-                    System.out.println("Opcion no valida.");
-                    break;
-            }
         }while(opcion != 3);
 
         sc.close();
     }
 
+    //metodo para leer opcion valida en menu
+    public int leerOpcionValida(Scanner scanner) {
+        int opcion = -1;
+         if(scanner.hasNextInt()) {
+                opcion = scanner.nextInt();
+         }
+        return opcion;
+    }
 
     //metodo para mostrar las opciones principales
     private void imprimirMenuPrincipal(){
@@ -264,28 +276,29 @@ public class Menu {
 
     //metodo para menu jugador
     private void mostrarMenuJugador(Scanner sc){
-        int opcion;
+        int opcion = -1;
         do{
             imprimirMenuJugador();
-            opcion = sc.nextInt();
-            sc.nextLine();
+                opcion = leerOpcionValida(sc);
+                sc.nextLine();
 
-            switch (opcion){
-                case 1:
-                    ronda.setJugador(jugadorAutenticado);
-                    ronda.setPreguntas(gestionPreguntas);
-                    ronda.jugarRonda(sc);
-                    break;
-                case 2:
-                    System.out.println(jugadorAutenticado.mostrarHistorial());
-                    break;
-                case 3:
-                    System.out.println("Regresando al menu principal...");
-                    break;
-                default:
-                    System.out.println("Opcion no valida.");
-                    break;
-            }
+                switch (opcion){
+                    case 1:
+                        juego.setJugador(jugadorAutenticado);
+                        juego.setPreguntas(gestionPreguntas);
+                        juego.iniciarJuego(sc);
+                        break;
+                    case 2:
+                        System.out.println(jugadorAutenticado.mostrarHistorial());
+                        break;
+                    case 3:
+                        System.out.println("Regresando al menu principal...");
+                        break;
+                    default:
+                        System.out.println("⚠️Opción no válida. Por favor, intente nuevamente.");
+                        break;
+                }
+
         }while (opcion != 3);
     }
 
@@ -317,9 +330,9 @@ public class Menu {
         }
     }
 
-    //verificar admin
+    //verificar usuario administrador
     private boolean verificarAdministrador(String usuario, String contrasena){
-        if("admin".equals(usuario) && "admin".equals(contrasena)){
+        if("admin".equalsIgnoreCase(usuario) && "admin".equalsIgnoreCase(contrasena)){
             return true;
         }
         else{
@@ -341,54 +354,95 @@ public class Menu {
 
     //metodo para mostrar menu admin
     private void mostrarMenuAdministrador(Scanner sc){
-        int opcion;
+        int opcion = -1;
+
         do{
             imprimirMenuAdministrador();
-            opcion = sc.nextInt();
-            sc.nextLine();
+                opcion = leerOpcionValida(sc);
+                sc.nextLine();
 
-            switch (opcion){
-                case 1:
-                    mostrarAgregarPregunta(sc);
-                    break;
-                case 2:
-                    //eliminar pregunta
-                    break;
-                case 3:
-                    //ver preguntas
-                    break;
-                case 4:
-                    System.out.println("Regresando al menu principal...");
-                    break;
-                default:
-                    System.out.println("Opcion no valida.");
-                    break;
-            }
+                switch (opcion){
+                    case 1:
+                        mostrarAgregarPregunta(sc);
+                        break;
+                    case 2:
+                        eliminarPregunta(sc);
+                        break;
+                    case 3:
+                        System.out.println(gestionPreguntas.mostrarPreguntas());
+                        break;
+                    case 4:
+                        System.out.println("Regresando al menu principal...");
+                        break;
+                    default:
+                        System.out.println("⚠️Opción no válida. Por favor, intente nuevamente.");
+                        break;
+                }
+
         }while (opcion != 4);
     }
 
-    //metodo para agregar pregunta
+    //metodo para eliminar pregunta por id administrador
+    private void eliminarPregunta(Scanner sc){
+        int id = -1;
+        boolean idValido = false;
+
+        // Bucle para solicitar al usuario un id válido
+        while (!idValido) {
+            System.out.println("Ingrese el id de la pregunta (debe ser un número entero):");
+
+            try {
+                id = sc.nextInt(); // Intentamos leer un número entero
+                sc.nextLine();
+                idValido = true; // Si se lee un int correctamente, salimos del bucle
+            } catch (InputMismatchException e) {
+                System.out.println("Error: El id ingresado no es un número válido. Intente de nuevo.");
+                sc.nextLine(); // Limpiamos el buffer para evitar un bucle infinito
+            }
+        }
+
+        int flag = 0;
+
+        try{
+            for (int i = 0; i < gestionPreguntas.getPreguntas().size(); i++) {
+                if (gestionPreguntas.getPreguntas().get(i).getId() == id) {
+                    gestionPreguntas.eliminarPregunta(gestionPreguntas.getPreguntas().get(i));
+                    System.out.println("Pregunta eliminada con éxito.");
+                    flag = 1;
+                    break;
+                }
+            }
+            if(flag == 0){
+                throw new ElementoNoExiste("El elemento no existe.");
+            }
+
+        }catch(ElementoNoExiste e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //metodo para mostrar agregar pregunta
     private void mostrarAgregarPregunta(Scanner sc){
-        int opcion;
+        int opcion = -1;
         do{
             imprimirPregunta();
-            opcion = sc.nextInt();
-            sc.nextLine();
+                opcion = leerOpcionValida(sc);
+                sc.nextLine();
 
-            switch (opcion){
-                case 1:
-                    agregarPreguntaMC(sc);
-                    break;
-                case 2:
-                    agregarPreguntaVoF(sc);
-                    break;
-                case 3:
-                    System.out.println("Regresando al menu anterior...");
-                    break;
-                default:
-                    System.out.println("Opcion no valida.");
-                    break;
-            }
+                switch (opcion){
+                    case 1:
+                        agregarPreguntaMC(sc);
+                        break;
+                    case 2:
+                        agregarPreguntaVoF(sc);
+                        break;
+                    case 3:
+                        System.out.println("Regresando al menu anterior...");
+                        break;
+                    default:
+                        System.out.println("⚠️Opción no válida. Por favor, intente nuevamente.");
+                        break;
+                }
         }while (opcion != 3);
 
     }
@@ -398,15 +452,38 @@ public class Menu {
         System.out.println("Ingrese el enunciado: ");
         String enunciado = sc.nextLine();
 
-        System.out.println("Ingrese la categoria: ");
-        imprimirCategoria();
-        int categoria = sc.nextInt();
-
-        sc.nextLine();
-
-        Categoria categoriaSeleccionada = Categoria.obtenerCategoriaPorId(categoria);
+        Categoria categoriaSeleccionada = solicitarCategoria(sc);
 
         return new String[]{enunciado, categoriaSeleccionada.toString()};
+    }
+
+    private Categoria solicitarCategoria(Scanner sc) {
+        Categoria categoriaSeleccionada = null;
+        int categoriaId = -1;
+
+        while (categoriaSeleccionada == null) {
+            System.out.println("Ingrese la categoria: ");
+            imprimirCategoria();
+
+            try {
+                categoriaId = sc.nextInt();
+                sc.nextLine();
+
+                // Validar que el número esté dentro del rango de las categorías disponibles
+                if (categoriaId < 1 || categoriaId > Categoria.values().length) {
+                    System.out.println("Categoría inválida. Debe ingresar un número entre 1 y " + Categoria.values().length);
+                    continue; //Volver a pedir la categoría si es inválida
+                }
+
+                categoriaSeleccionada = Categoria.obtenerCategoriaPorId(categoriaId); //Obtener la categoría por id
+
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Por favor, ingrese un número.");
+                sc.nextLine();
+            }
+        }
+
+        return categoriaSeleccionada;
     }
 
     //metodo para agregar pregunta vof
@@ -416,14 +493,13 @@ public class Menu {
         String enunciado = datos[0];
         Categoria categoria = Categoria.valueOf(datos[1]);
 
-        System.out.println("Ingrese la respuesta correcta: ");
-        String respuesta = sc.nextLine();
+        String respuesta = verificarRespuestaVoF(sc);
 
         PreguntaVerdaderoOFalso nuevavof = new PreguntaVerdaderoOFalso(enunciado, categoria, respuesta);
 
         try{
             gestionPreguntas.agregarPregunta(nuevavof);
-            System.out.println("Pregunta verdadero o falso agregada correctamente.");
+            System.out.println("Pregunta de verdadero o falso agregada correctamente.");
         }catch(ElementoDuplicado e){
             System.out.println(e.getMessage());
         }
@@ -431,6 +507,20 @@ public class Menu {
         System.out.println(nuevavof.toString());
 
     }
+
+    //metodo para verificar respuesta correcta en vof
+    private String verificarRespuestaVoF(Scanner sc){
+        while (true) {
+            System.out.println("Ingrese la respuesta correcta (verdadero/falso): ");
+            String respuesta = sc.nextLine().trim().toLowerCase();
+            if (respuesta.equals("verdadero") || respuesta.equals("falso")) {
+                return respuesta;
+            } else {
+                System.out.println("Respuesta inválida. Solo se acepta 'verdadero' o 'falso'.");
+            }
+        }
+    }
+
 
     //metodo para agregar pregunta multiple choice
     private void agregarPreguntaMC(Scanner sc){
@@ -459,35 +549,46 @@ public class Menu {
 
     }
 
-    //metodo para agregar opciones mc
+    //metodo para agregar opciones en pregunta multiple choice administrador
     private void agregarOpcionesMC(Scanner sc, PreguntaMultipleChoice nueva) {
         boolean seguirAgregando = true;
 
-        // Bucle para agregar opciones
         while (seguirAgregando) {
             System.out.println("Ingrese una opción: ");
             String opcion = sc.nextLine();
             nueva.agregarOpcion(opcion); // Añadir la opción a la lista
 
-            System.out.println("¿Desea agregar otra opción? (si/no)");
-            String respuesta = sc.nextLine();
-
-            if (respuesta.equalsIgnoreCase("no")) {
-                seguirAgregando = false;  // Salir del bucle si la respuesta es 'no'
-            }
+            seguirAgregando = preguntarSiContinuar(sc); // Método separado para validar la respuesta del usuario
         }
+
+        // Desordenar las opciones
         Collections.shuffle(nueva.getOpciones().getElementos());
     }
 
+    //Metodo para validar si el usuario desea continuar
+    private boolean preguntarSiContinuar(Scanner sc) {
+        while (true) { // Bucle para validar la respuesta
+            System.out.println("¿Desea agregar otra opción? (si/no)");
+            String respuesta = sc.nextLine().trim().toLowerCase(); // Normalizar entrada
+            if (respuesta.equals("si")) {
+                return true; // Continuar agregando
+            } else if (respuesta.equals("no")) {
+                return false; // Terminar el bucle
+            } else {
+                System.out.println("⚠️ Respuesta no válida. Por favor, ingrese 'si' o 'no'.");
+            }
+        }
+    }
 
-    //metodo para imprimir categoria
+
+    //metodo para imprimir la lista de categorias
     private void imprimirCategoria(){
         for(Categoria categoria : Categoria.values()){
             System.out.println(categoria.getId() + ". " + categoria);
         }
     }
 
-    //metodo imprimir menu agregar pregunta
+    //metodo para imprimir el menu de agregar pregunta administrador
     private void imprimirPregunta(){
         System.out.println("\n1\uFE0F⃣ Pregunta múltiple choice.");
         System.out.println("2\uFE0F⃣ Pregunta verdadero o falso.");
@@ -528,5 +629,7 @@ public class Menu {
         System.out.println("\u001B[32mPor favor, inicie sesión para continuar.\u001B[0m\n");
 
     }
+
+
 
 }
