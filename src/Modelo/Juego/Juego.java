@@ -41,15 +41,15 @@ public class Juego {
 
     // Metodo principal que controla el flujo de las rondas en el juego.
     public void iniciarJuego(Scanner scanner) {
-        System.out.println("¡Comienza el juego!");
+        System.out.println("\n\u001B[42m\u001B[30m\uD83C\uDFC1\u001B[1m ¡Comienza el juego! \uD83C\uDFC1\u001B[0m");
         for (int rondaActual = 1; rondaActual <= nroMaxRondas; rondaActual++) {
-            System.out.println("\nRonda " + rondaActual + " de " + nroMaxRondas);
+            System.out.println("\n\u001B[33m Ronda " + rondaActual + " de " + nroMaxRondas + " \u001B[0m");
             Categoria categoriaAux = obtenerCategoria(); // Selección de categoría
-            System.out.println("Categoría seleccionada: " + categoriaAux);
+            System.out.println("\uD83D\uDD0D Categoría seleccionada: " + categoriaAux);
             jugarPorCategoria(categoriaAux, scanner);
         }
         // Finaliza el juego mostrando el puntaje total y guardándolo en el historial del jugador
-        System.out.println("\nFin del juego. Puntaje total acumulado: " + puntaje.getPuntaje());
+        System.out.println("\n\u001B[47m\u001B\uD83D\uDEA8[30m Fin del juego. Puntaje total acumulado: " + puntaje.getPuntaje() + " \uD83D\uDEA8\u001B[0m");
         this.jugador.agregarPuntaje(puntaje);// Agregar puntaje al historial del jugador
 
         puntaje = new Puntaje(0);
@@ -76,11 +76,11 @@ public class Juego {
 
         //limitamos a solo 3 preguntas por ronda
         for (int preguntaActual = 0; preguntaActual < 3 && preguntaActual < preguntasFiltradas.size(); preguntaActual++) {
-            System.out.println("\nPregunta " + (preguntaActual + 1) + " de 3 en la categoría " + categoria);
+            System.out.println("\n\uD83D\uDCA1 Pregunta " + (preguntaActual + 1) + " de 3 en la categoría " + categoria + "\n");
             racha = manejarPregunta(preguntasFiltradas.get(preguntaActual), racha, scanner); // Procesa la pregunta
         }
 
-        System.out.println("Fin de la categoría: " + categoria);
+        System.out.println("\uD83D\uDD62 Fin de la categoría: " + categoria + " \uD83D\uDD62");
 
     }
 
@@ -123,7 +123,7 @@ public class Juego {
 
     //obtener la respuesta seleccionada por el jugador a una pregunta, ya sea de tipo Multiple Choice o Verdadero o Falso.
     public String obtenerRespuestaDelJugador(Pregunta pregunta, Scanner scanner){
-        System.out.println("\nIngrese la opcion correcta: ");
+        System.out.println("\n\uD83D\uDC47 Ingrese la opcion correcta: ");
         int opcionRespuesta = -1;
        while (true){
            try{
@@ -134,7 +134,7 @@ public class Juego {
                }
                break;
            }catch(InputMismatchException | IllegalArgumentException e) {
-               System.out.println("Error: " + e.getMessage() + "\nIngrese la opcion correcta: ");
+               System.out.println("Error: " + e.getMessage() + "\n\uD83D\uDC47 Ingrese la opcion correcta: ");
                scanner.next();
            }
        }
@@ -163,10 +163,10 @@ public class Juego {
 
     //Procesa las respuestas correctas, calculando el puntaje y actualizando la racha.
     private int manejarRespuestaCorrecta(Pregunta preguntaAux, int racha) {
-        System.out.println("¡Correcto! Calculando puntos...");
+        System.out.println("\u001B[32m¡Correcto! Calculando puntos...\u001B[0m");
         if (racha != 0) {
             puntaje.setPuntaje(puntaje.getPuntaje() + preguntaAux.getPuntajeBase() + 2);
-            System.out.println("¡Bonus por racha! Puntos obtenidos: " + (preguntaAux.getPuntajeBase() + 2));
+            System.out.println("\uD83D\uDCA3¡Bonus por racha! Puntos obtenidos: " + (preguntaAux.getPuntajeBase() + 2) + "\uD83D\uDCA3");
         } else {
             puntaje.setPuntaje(puntaje.getPuntaje() + preguntaAux.getPuntajeBase());
             System.out.println("Puntos obtenidos: " + preguntaAux.getPuntajeBase());
@@ -183,9 +183,9 @@ public class Juego {
     private int manejarRespuestaIncorrecta(int racha, RespuestaIncorrecta e) {
         System.out.println(e.getMessage());
         puntaje.setPuntaje(puntaje.getPuntaje() - 5);
-        System.out.println("Penalización de 5 puntos. Puntaje acumulado: " + obtenerPuntaje());
+        System.out.println("\u001B[31mPenalización de 5 puntos. \u001B[0m Puntaje acumulado: " + obtenerPuntaje());
         if(racha != 0){
-            System.out.println("¡Racha perdida! Racha restablecida a 0.");
+            System.out.println("\u001B[31m¡Racha perdida! ☹\uFE0F\u001B[0m Racha restablecida a 0.");
             racha = 0;
         }
 

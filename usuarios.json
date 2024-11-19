@@ -8,10 +8,32 @@
     {
         "Contrasenia": "1234",
         "Email": "cami@mail.com",
-        "HistorialPuntajes": [{
-            "Fecha": "2024-11-19T17:10:03.184710800",
-            "Puntaje": 25
-        }],
+        "HistorialPuntajes": [
+            {
+                "Fecha": "2024-11-19T17:23:05.863067200",
+                "Puntaje": 25
+            },
+            {
+                "Fecha": "2024-11-19T17:23:05.864067500",
+                "Puntaje": 37
+            },
+            {
+                "Fecha": "2024-11-19T17:29:32.000993632",
+                "Puntaje": 44
+            },
+            {
+                "Fecha": "2024-11-19T17:39:40.731494900",
+                "Puntaje": 25
+            },
+            {
+                "Fecha": "2024-11-19T17:40:18.477729500",
+                "Puntaje": 10
+            },
+            {
+                "Fecha": "2024-11-19T19:58:46.763184900",
+                "Puntaje": 27
+            }
+        ],
         "NombreUsuario": "cami"
     }
 ]

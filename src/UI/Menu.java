@@ -36,6 +36,8 @@ public class Menu {
 
     //metodo para mostrar el menu
     public void mostrarMenu(){
+        efectoRainbowTitulo();
+
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
 
@@ -255,7 +257,7 @@ public class Menu {
     //metodo para mostrar las opciones principales
     private void imprimirMenuPrincipal(){
         System.out.println("\n********************");
-        System.out.println("\u001B[1m✨ MENÚ PRINCIPAL ✨\u001B[0m");
+        System.out.println("\u001B[1m\u001B[45m\u001B[30m✨ MENÚ PRINCIPAL ✨\u001B[0m");
         System.out.println("********************");
         System.out.println("1\uFE0F⃣ Iniciar sesión.");
         System.out.println("2\uFE0F⃣ Registrarse.");
@@ -266,7 +268,7 @@ public class Menu {
     //metodo para mostrar las opciones del jugador
     private void imprimirMenuJugador(){
         System.out.println("\n***********************************");
-        System.out.println("\u001B[1m\uD83D\uDE4C ¡¡Bienvenido " + jugadorAutenticado.getNombreUsuario() + "!! \uD83D\uDE4C \u001B[0m");
+        System.out.println("\u001B[44m\u001B[1m\uD83D\uDE4C\u001B[30m ¡¡Bienvenido " + jugadorAutenticado.getNombreUsuario() + "!! \uD83D\uDE4C \u001B[0m");
         System.out.println("***********************************");
         System.out.println("1\uFE0F⃣  Jugar partida\uD83D\uDD79\uFE0F");
         System.out.println("2\uFE0F⃣  Ver historial de partidas\uD83D\uDCDD");
@@ -289,7 +291,9 @@ public class Menu {
                         juego.iniciarJuego(sc);
                         break;
                     case 2:
+                        System.out.println("\n\u001B[35m⏳HISTORIAL DE PARTIDAS: ⏳\u001B[0m");
                         System.out.println(jugadorAutenticado.mostrarHistorial());
+                        System.out.println("\u001B[35m--------------------\u001B[0m");
                         break;
                     case 3:
                         System.out.println("Regresando al menu principal...");
@@ -313,7 +317,7 @@ public class Menu {
         try{
             if(gestionUsuario.verificarLogin(usuario, contrasena)){
                 if(verificarAdministrador(usuario, contrasena)){
-                    System.out.println("\n\u001B[32mInicio de sesion exitoso✔\uFE0F\u001B[0m\n");
+                    System.out.println("\n\u001B[32mInicio de sesion exitoso✔\uFE0F\u001B[0m");
                     mostrarMenuAdministrador(sc);
                 }
                 else{
@@ -343,11 +347,11 @@ public class Menu {
     //metodo para imprimir menu admin
     private void imprimirMenuAdministrador(){
         System.out.println("\n***********************************");
-        System.out.println("\uD83D\uDD75\uFE0F MENÚ ADMINISTRADOR \uD83D\uDD75\uFE0F");
+        System.out.println("\u001B[47m\u001B[30m\uD83D\uDD75\uFE0F MENÚ ADMINISTRADOR \uD83D\uDD75\uFE0F\u001B[0m");
         System.out.println("***********************************");
         System.out.println("1\uFE0F⃣  Agregar pregunta\uD83D\uDCA1");
         System.out.println("2\uFE0F⃣  Eliminar pregunta❌");
-        System.out.println("3\uFE0F⃣  Ver lista de preguntas");
+        System.out.println("3\uFE0F⃣  Ver lista de preguntas\uD83D\uDCDD");
         System.out.println("4\uFE0F⃣ Volver al menú principal↩\uFE0F");
         System.out.println("Seleccione una opción \uD83D\uDC49 ");
     }
@@ -369,7 +373,9 @@ public class Menu {
                         eliminarPregunta(sc);
                         break;
                     case 3:
+                        System.out.println("\n\u001B[35m❓ LISTA DE PREGUNTAS: ❓\u001B[0m\n");
                         System.out.println(gestionPreguntas.mostrarPreguntas());
+                        System.out.println("\u001B[35m--------------------\u001B[0m");
                         break;
                     case 4:
                         System.out.println("Regresando al menu principal...");
@@ -630,6 +636,30 @@ public class Menu {
 
     }
 
+    private void efectoRainbowTitulo(){
+        String texto = "PREGUNTADOS";
 
+        String[] colores = {
+                "\u001B[31m", // Rojo
+                "\u001B[33m", // Amarillo
+                "\u001B[32m", // Verde
+                "\u001B[34m", // Azul
+                "\u001B[35m", // Magenta
+                "\u001B[36m", // Cian
+                "\u001B[37m"  // Blanco
+        };
+
+        String negrita = "\u001B[1m";  // Código para negrita
+        String reset = "\u001B[0m"; // Código para restablecer el color
+
+        System.out.println(negrita);
+
+        // Imprime el texto con colores cambiantes (Rainbow)
+        for (int i = 0; i < texto.length(); i++) {
+            System.out.print(colores[i % colores.length] + texto.charAt(i));
+        }
+
+        System.out.println(reset); // Resetear color al final
+    }
 
 }
