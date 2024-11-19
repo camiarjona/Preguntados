@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public abstract class Pregunta implements IJson, IEvaluable, IObtener {
 
-    protected  static  int idAuto = 1;
+    protected  static  int idAuto = 0;
     protected int id;
     protected String enunciado;
     protected Categoria categoria;
@@ -48,19 +48,18 @@ public abstract class Pregunta implements IJson, IEvaluable, IObtener {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Pregunta pregunta = (Pregunta) o;
-        return Objects.equals(enunciado, pregunta.enunciado);
+        return id == pregunta.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(enunciado);
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
-        return "Pregunta: " +
-                "\n Enunciado: " + enunciado +
-                " Categoria: " + categoria +
-                "\n";
+        return "ID: " + id +
+                " Enunciado: " + enunciado +
+                " Categoria: " + categoria;
     }
 }

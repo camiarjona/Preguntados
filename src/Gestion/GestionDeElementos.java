@@ -7,9 +7,10 @@ import Interfaces.IJson;
 import java.util.ArrayList;
 
 public class GestionDeElementos <T>{
-
+    //atributo
    private ArrayList<T> elementos;
 
+   //Constructor
     public GestionDeElementos() {
         this.elementos = new ArrayList<>();
     }
@@ -19,8 +20,10 @@ public class GestionDeElementos <T>{
     }
 
     /**
-     * Agrega un elemento a la lista si no está presente previamente.
-     * @param t el elemento que se desea agregar a la lista.
+     * Este metodo agrega un elemento a la lista
+     * @param t tipo
+     * @return boolean
+     * @throws ElementoDuplicado excepcion
      */
     public boolean agregarElemento(T t) throws ElementoDuplicado {
         if(!elementos.contains(t)){
@@ -32,13 +35,23 @@ public class GestionDeElementos <T>{
         }
     }
 
+    /**
+     *
+     * @param t
+     * @return
+     * @throws ElementoNoExiste
+     */
     public boolean eliminarElemento (T t) throws ElementoNoExiste {
-        if(elementos.remove(t)) {
-            return true;
+        boolean eliminado = false;
+        if(t != null){
+            if(elementos.remove(t)) {
+                eliminado =  true;
+            }
         }
         else{
             throw new ElementoNoExiste("El elemento no se encuentra en la lista");
         }
+        return eliminado;
     }
 
     public boolean buscarElemento(T t) throws ElementoNoExiste {
