@@ -1,6 +1,9 @@
 package Gestion;
 
+import JSON.JSONUtiles;
 import Modelo.Juego.Pregunta;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -54,5 +57,31 @@ public class GestionPreguntas {
 
         }
         return eliminar;
+    }
+
+    public void cargarPreguntasDesdeJson(String rutaArchivo) {
+        try {
+            // Leer el contenido del archivo JSON
+            String contenido = JSONUtiles.leerArchivo(rutaArchivo);
+
+            // Convertir el contenido en un JSONArray
+            JSONArray jsonArray = new JSONArray(contenido);
+
+            // Convertir el JSONArray en un objeto GestionPreguntas
+            GestionPreguntas gestionPreguntas= toObj(jsonArray);
+
+            // Copiar las preguntas cargadas a la lista de preguntas actual
+            this.preguntas = gestionPreguntas.preguntas;
+
+            System.out.println("Preguntas cargadas con éxito.");
+
+        }catch (JSONException e) {
+            System.out.println("Error al procesar el archivo JSON: " + e.getMessage());
+        }
+    }
+
+    public void guardarPreguntas(String rutaArchivo) {
+        JSONArray jsonArray = preguntasAJson();
+        JSONUtiles.guardarJSONArray(jsonArray, rutaArchivo);
     }
 }
