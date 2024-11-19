@@ -14,7 +14,7 @@ import java.util.*;
 
 public class Ronda {
 
-    private static final int nroMaxRondas = 4;
+    private static final int nroMaxRondas = 3;
     private GestionPreguntas preguntas;
     private Puntaje puntaje;
     private Jugador jugador;
@@ -22,7 +22,20 @@ public class Ronda {
     //CONSTRUCTORES
     public Ronda(Jugador jugador, GestionPreguntas preguntas) {
         this.preguntas = preguntas;
-        this.puntaje = new Puntaje();
+        this.puntaje = new Puntaje(0);
+        this.jugador = jugador;
+    }
+
+    public Ronda() {
+        this.puntaje = new Puntaje(0);
+
+    }
+
+    public void setPreguntas(GestionPreguntas preguntas) {
+        this.preguntas = preguntas;
+    }
+
+    public void setJugador(Jugador jugador) {
         this.jugador = jugador;
     }
 
@@ -55,33 +68,35 @@ public class Ronda {
 
     // Maneja las preguntas de una categoría específica
     private void jugarPorCategoria(Categoria categoria, Scanner scanner) {
-        List<Pregunta> preguntasDesordenadas = desordenarPreguntas();
+        desordenarPreguntas();
         int racha = 0;
     // Desordenar preguntas
-
         for (int preguntaActual = 1; preguntaActual < 4; preguntaActual++) {
             System.out.println("\nPregunta " + preguntaActual + " de 3 en la categoría " + categoria);
-            racha = procesarPreguntasPorCategoria(preguntasDesordenadas, categoria, scanner, racha); // Procesar preguntas
+            racha = procesarPreguntasPorCategoria(preguntas.getPreguntas(), categoria, scanner, racha); // Procesar preguntas
         }
         System.out.println("Fin de la categoría: " + categoria);
 
     }
 
     // Desordena la lista de preguntas para añadir variedad al juego.
-    private List<Pregunta> desordenarPreguntas() {
-        List<Pregunta> preguntasDesordenadas = new ArrayList<>(preguntas.getPreguntas());
-        Collections.shuffle(preguntasDesordenadas);
-        return preguntasDesordenadas;
+    private void desordenarPreguntas() {
+       // List<Pregunta> preguntasDesordenadas = preguntas.getPreguntas();
+        Collections.shuffle(preguntas.getPreguntas());
     }
 
     // Procesa las preguntas filtradas por categoría, mostrando y evaluando cada una.
     private int procesarPreguntasPorCategoria(List<Pregunta> preguntasDesordenadas, Categoria categoria, Scanner scanner, int racha) {
-        for (Pregunta preguntaAux : preguntasDesordenadas) {
-            if (preguntaAux.categoria == categoria) {
-                racha = manejarPregunta(preguntaAux, racha, scanner);
+        int i = 0;
+            for (Pregunta preguntaAux : preguntasDesordenadas) {
+                    while(i < 3) {
+                    if (preguntaAux.categoria == categoria) {
+                        racha = manejarPregunta(preguntaAux, racha, scanner);
+                        i++;
+                    }
+                }
             }
-        }
-        return racha;
+            return racha;
     }
 
     // Maneja una pregunta específica: muestra el enunciado, obtiene la respuesta y la evalúa.
