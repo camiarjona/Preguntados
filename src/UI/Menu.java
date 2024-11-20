@@ -19,23 +19,24 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
-
+    ///atributos
     private static GestionUsuario gestionUsuario;
     private static GestionPreguntas gestionPreguntas;
     private Jugador jugadorAutenticado;
     private Juego juego;
 
+    ///constructor
     public Menu(){
         gestionUsuario = new GestionUsuario();
         gestionPreguntas = new GestionPreguntas();
         juego = new Juego();
 
-        //cargar usuarios desde el json
+        //cargar datos desde el json
         gestionUsuario.cargarUsuariosDesdeJson("usuarios.json");
         gestionPreguntas.cargarPreguntasDesdeJson("preguntas.json");
     }
 
-    //metodo para mostrar el menu
+    ///metodo para mostrar el menu
     public void mostrarMenu(){
         efectoRainbowTitulo();
 
@@ -69,7 +70,7 @@ public class Menu {
         sc.close();
     }
 
-    //metodo para leer opcion valida en menu
+    ///metodo para leer opcion valida en menu
     public int leerOpcionValida(Scanner scanner) {
         int opcion = -1;
          if(scanner.hasNextInt()) {
@@ -78,7 +79,7 @@ public class Menu {
         return opcion;
     }
 
-    //metodo para mostrar las opciones principales
+    ///metodo para mostrar las opciones principales
     private void imprimirMenuPrincipal(){
         System.out.println("\n********************");
         System.out.println("\u001B[1m\u001B[45m\u001B[30m✨ MENÚ PRINCIPAL ✨\u001B[0m");
@@ -89,7 +90,7 @@ public class Menu {
         System.out.println("Seleccione una opción \uD83D\uDC49 ");
     }
 
-    //metodo para mostrar las opciones del jugador
+    ///metodo para mostrar las opciones del jugador
     private void imprimirMenuJugador(){
         System.out.println("\n***********************************");
         System.out.println("\u001B[44m\u001B[1m\uD83D\uDE4C\u001B[30m ¡¡Bienvenido " + jugadorAutenticado.getNombreUsuario() + "!! \uD83D\uDE4C \u001B[0m");
@@ -100,7 +101,7 @@ public class Menu {
         System.out.println("Seleccione una opción \uD83D\uDC49 ");
     }
 
-    //metodo para menu jugador
+    ///metodo para menu jugador
     private void mostrarMenuJugador(Scanner sc){
         int opcion = -1;
         do{
@@ -131,7 +132,7 @@ public class Menu {
         }while (opcion != 3);
     }
 
-    //metodo para iniciar sesion
+    ///metodo para iniciar sesion
     private void iniciarSesion(Scanner sc) {
         System.out.printf("\uD83C\uDFAF Ingrese el nombre de usuario: ");
         String usuario = sc.nextLine();
@@ -142,12 +143,12 @@ public class Menu {
         try{
             if(gestionUsuario.verificarLogin(usuario, contrasena)){
                 if(verificarAdministrador(usuario, contrasena)){
-                    System.out.println("\n\u001B[32mInicio de sesion exitoso✔\uFE0F\u001B[0m");
+                    System.out.println("\n\u001B[32mInicio de sesion exitoso ✔\uFE0F\u001B[0m");
                     mostrarMenuAdministrador(sc);
                 }
                 else{
                     jugadorAutenticado = gestionUsuario.obtenerJugadorPorNombre(usuario);
-                    System.out.println("\n\u001B[32mInicio de sesion exitoso✔\uFE0F\u001B[0m\n");
+                    System.out.println("\n\u001B[32mInicio de sesion exitoso ✔\uFE0F\u001B[0m\n");
                     mostrarMenuJugador(sc);
                 }
 
@@ -155,14 +156,14 @@ public class Menu {
 
         }catch (UsuarioIncorrecto | ContraseniaInconrrecta e){
             System.out.println(e.getMessage());
-            System.out.println("Intente nuevamente.");
+            System.out.println("\033[31m Intente nuevamente.\033[0m");
         }
 
 
 
     }
 
-    //verificar usuario administrador
+    ///metodo para verificar usuario administrador
     private boolean verificarAdministrador(String usuario, String contrasena){
         if("admin".equalsIgnoreCase(usuario) && "admin".equalsIgnoreCase(contrasena)){
             return true;
@@ -172,7 +173,7 @@ public class Menu {
         }
     }
 
-    //metodo para imprimir menu admin
+    ///metodo para imprimir menu admin
     private void imprimirMenuAdministrador(){
         System.out.println("\n***********************************");
         System.out.println("\u001B[47m\u001B[30m\uD83D\uDD75\uFE0F MENÚ ADMINISTRADOR \uD83D\uDD75\uFE0F\u001B[0m");
@@ -184,7 +185,7 @@ public class Menu {
         System.out.println("Seleccione una opción \uD83D\uDC49 ");
     }
 
-    //metodo para mostrar menu admin
+    ///metodo para mostrar menu admin
     private void mostrarMenuAdministrador(Scanner sc){
         int opcion = -1;
 
@@ -216,7 +217,7 @@ public class Menu {
         }while (opcion != 4);
     }
 
-    //metodo para eliminar pregunta por id administrador
+    ///metodo para eliminar pregunta por id administrador
     private void eliminarPregunta(Scanner sc){
         int id = -1;
         boolean idValido = false;
@@ -256,7 +257,7 @@ public class Menu {
         }
     }
 
-    //metodo para mostrar agregar pregunta
+    ///metodo para mostrar agregar pregunta
     private void mostrarAgregarPregunta(Scanner sc){
         int opcion = -1;
         do{
@@ -282,7 +283,7 @@ public class Menu {
 
     }
 
-    //metodo para capturar datos comunes entre ambos tipos de preguntas, se usa un arreglo ya que pregunta es abstracta y no se puede instanciar.
+    ///metodo para capturar datos comunes entre ambos tipos de preguntas, se usa un arreglo ya que pregunta es abstracta y no se puede instanciar.
     private String[] capturarDatosComunes(Scanner sc){
         System.out.println("Ingrese el enunciado: ");
         String enunciado = sc.nextLine();
@@ -292,7 +293,7 @@ public class Menu {
         return new String[]{enunciado, categoriaSeleccionada.toString()};
     }
 
-    //solicitar categoria y verificar que sea valida
+    ///solicitar categoria y verificar que sea valida
     private Categoria solicitarCategoria(Scanner sc) {
         Categoria categoriaSeleccionada = null;
         int categoriaId = -1;
@@ -322,7 +323,7 @@ public class Menu {
         return categoriaSeleccionada;
     }
 
-    //metodo para agregar pregunta vof
+    ///metodo para agregar pregunta vof
     private void agregarPreguntaVoF(Scanner sc){
         String[] datos = capturarDatosComunes(sc);
 
@@ -345,7 +346,7 @@ public class Menu {
 
     }
 
-    //metodo para verificar respuesta correcta en vof
+    ///metodo para verificar respuesta correcta en vof
     private String verificarRespuestaVoF(Scanner sc){
         while (true) {
             System.out.println("Ingrese la respuesta correcta (verdadero/falso): ");
@@ -358,8 +359,7 @@ public class Menu {
         }
     }
 
-
-    //metodo para agregar pregunta multiple choice
+    ///metodo para agregar pregunta multiple choice
     private void agregarPreguntaMC(Scanner sc){
         String[] datos = capturarDatosComunes(sc);
 
@@ -387,7 +387,7 @@ public class Menu {
 
     }
 
-    //metodo para agregar opciones en pregunta multiple choice administrador
+    ///metodo para agregar opciones en pregunta multiple choice administrador
     private void agregarOpcionesMC(Scanner sc, PreguntaMultipleChoice nueva) {
         boolean seguirAgregando = true;
 
@@ -405,7 +405,7 @@ public class Menu {
         Collections.shuffle(nueva.getOpciones().getElementos());
     }
 
-    //Metodo para validar si el usuario desea continuar
+    ///Metodo para validar si el usuario desea continuar
     private boolean preguntarSiContinuar(Scanner sc) {
         while (true) { // Bucle para validar la respuesta
             System.out.println("¿Desea agregar otra opción? (si/no)");
@@ -421,14 +421,14 @@ public class Menu {
     }
 
 
-    //metodo para imprimir la lista de categorias
+    ///metodo para imprimir la lista de categorias
     private void imprimirCategoria(){
         for(Categoria categoria : Categoria.values()){
             System.out.println(categoria.getId() + ". " + categoria);
         }
     }
 
-    //metodo para imprimir el menu de agregar pregunta administrador
+    ///metodo para imprimir el menu de agregar pregunta administrador
     private void imprimirPregunta(){
         System.out.println("\033[36m¿Qué tipo de pregunta desea agregar? \uD83E\uDD14\033[0m");
         System.out.println("1\uFE0F⃣ Pregunta múltiple choice.");
@@ -436,8 +436,7 @@ public class Menu {
         System.out.println("3\uFE0F⃣ Volver al menú anterior.");
     }
 
-
-    //metodo para registrar un nuevo usuario
+    ///metodo para registrar un nuevo usuario
     private void registrarUsuario(Scanner sc) {
         System.out.println("\uD83C\uDFAF Ingrese el nombre de usuario: ");
          String usuario = sc.nextLine();
@@ -471,7 +470,7 @@ public class Menu {
 
     }
 
-    //metodo para poner efecto rainbow al titulo
+    ///metodo para poner efecto rainbow al titulo
     private void efectoRainbowTitulo(){
         String texto = "PREGUNTADOS";
 

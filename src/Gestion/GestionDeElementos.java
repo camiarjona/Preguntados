@@ -2,29 +2,24 @@ package Gestion;
 
 import Excepciones.ElementoDuplicado;
 import Excepciones.ElementoNoExiste;
-import Interfaces.IJson;
 
 import java.util.ArrayList;
 
 public class GestionDeElementos <T>{
-    //atributo
+    ///atributo
    private ArrayList<T> elementos;
 
-   //Constructor
+   ///constructor
     public GestionDeElementos() {
         this.elementos = new ArrayList<>();
     }
 
+    ///metodo para obtener la lista de elementos
     public ArrayList<T> getElementos() {
         return elementos;
     }
 
-    /**
-     * Este metodo agrega un elemento a la lista
-     * @param t tipo
-     * @return boolean
-     * @throws ElementoDuplicado excepcion
-     */
+   ///metodo para agregar un elemento a la lista
     public boolean agregarElemento(T t) throws ElementoDuplicado {
         if(!elementos.contains(t)){
              elementos.add(t);
@@ -35,12 +30,7 @@ public class GestionDeElementos <T>{
         }
     }
 
-    /**
-     *
-     * @param t
-     * @return
-     * @throws ElementoNoExiste
-     */
+   ///metodo para eliminar un elemento de la lista
     public boolean eliminarElemento (T t) throws ElementoNoExiste {
         boolean eliminado = false;
         if(t != null){
@@ -54,6 +44,7 @@ public class GestionDeElementos <T>{
         return eliminado;
     }
 
+    ///metodo para buscar un elemento
     public boolean buscarElemento(T t) throws ElementoNoExiste {
             if(elementos.isEmpty()) {
                 throw new IllegalArgumentException("La lista no contiene elementos");
@@ -66,8 +57,5 @@ public class GestionDeElementos <T>{
             }
     }
 
-    public ArrayList<T> obtenerTodosLosElementos() {
-        return new ArrayList<>(this.elementos);
-    }
 }
 

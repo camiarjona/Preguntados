@@ -13,34 +13,36 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class GestionPreguntas {
+    ///atributo
     private GestionDeElementos<Pregunta> preguntas;
 
+    ///constructor
     public GestionPreguntas() {
         preguntas = new GestionDeElementos<>();
     }
 
+    /// metodo para agregar pregunta a la lista
     public void agregarPregunta(Pregunta pregunta) {
         preguntas.agregarElemento(pregunta);
     }
 
+    /// metodo para eliminar pregunta de la lista
     public void eliminarPregunta(Pregunta pregunta) {
         preguntas.eliminarElemento(pregunta);
     }
 
-    public void buscarPregunta(Pregunta pregunta) {
-        preguntas.buscarElemento(pregunta);
-    }
-
+    /// metodo para obtener preguntas
     public ArrayList<Pregunta> getPreguntas() {
         return preguntas.getElementos();
     }
 
+    /// to string
     @Override
     public String toString() {
         return "Preguntas en la lista: \n" + preguntas.getElementos();
     }
 
-    //metodo para mostrar la lista de preguntas
+    ///metodo para mostrar la lista de preguntas
     public String mostrarPreguntas() {
         StringBuilder sb = new StringBuilder();
         int i = 1;
@@ -51,7 +53,7 @@ public class GestionPreguntas {
         return sb.toString();
     }
 
-    //metodo para convertir mi lista de preguntas a formato json
+    ///metodo para convertir mi lista de preguntas a formato json
     public JSONArray preguntasAJson(){
         JSONArray jsonArray = new JSONArray();
         for (Pregunta pregunta : preguntas.getElementos()) {
@@ -60,7 +62,7 @@ public class GestionPreguntas {
         return jsonArray;
     }
 
-    //metodo para convertir mi jsonArray de preguntas a formato Gestion de preguntas
+    ///metodo para convertir mi jsonArray de preguntas a formato Gestion de preguntas
     public static GestionPreguntas toObj(JSONArray jsonArray) {
         GestionPreguntas preguntas = new GestionPreguntas();
         try {
@@ -82,6 +84,7 @@ public class GestionPreguntas {
         return preguntas;
     }
 
+    /// metodo para cargar la lista de preguntas desde el json
     public void cargarPreguntasDesdeJson(String rutaArchivo) {
         try {
             // Leer el contenido del archivo JSON
@@ -96,13 +99,14 @@ public class GestionPreguntas {
             // Copiar las preguntas cargadas a la lista de preguntas actual
             this.preguntas = gestionPreguntas.preguntas;
 
-            System.out.println("Preguntas cargadas con éxito.");
+            System.out.println("\033[32mPreguntas cargadas con éxito.\u001B[0m");
 
         }catch (JSONException e) {
             System.out.println("Error al procesar el archivo JSON: " + e.getMessage());
         }
     }
 
+    /// metodo para guardar preguntas en el json
     public void guardarPreguntas(String rutaArchivo) {
         JSONArray jsonArray = preguntasAJson();
         JSONUtiles.guardarJSONArray(jsonArray, rutaArchivo);

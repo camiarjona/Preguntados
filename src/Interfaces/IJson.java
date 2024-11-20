@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 public interface IJson {
 
+    ///firma metodo para convertir a json los objetos
     JSONObject toJson();
 
 }

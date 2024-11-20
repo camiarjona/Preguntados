@@ -8,13 +8,13 @@ import Modelo.Usuario.Jugador;
 import java.util.*;
 
 public class Juego {
-
+    ///atributos
     private static final int nroMaxRondas = 3;
     private GestionPreguntas preguntas;
     private Puntaje puntaje;
     private Jugador jugador;
 
-    //CONSTRUCTORES
+    ///CONSTRUCTORES
     public Juego(Jugador jugador, GestionPreguntas preguntas) {
         this.preguntas = preguntas;
         this.puntaje = new Puntaje(0);
@@ -26,6 +26,7 @@ public class Juego {
 
     }
 
+    ///get y set
     public void setPreguntas(GestionPreguntas preguntas) {
         this.preguntas = preguntas;
     }
@@ -38,8 +39,7 @@ public class Juego {
         return puntaje.getPuntaje();
     }
 
-
-    // Metodo principal que controla el flujo de las rondas en el juego.
+    ///Metodo principal que controla el flujo del juego
     public void iniciarJuego(Scanner scanner) {
         System.out.println("\n\u001B[42m\u001B[30m\uD83C\uDFC1\u001B[1m ¡Comienza el juego! \uD83C\uDFC1\u001B[0m");
         for (int rondaActual = 1; rondaActual <= nroMaxRondas; rondaActual++) {
@@ -48,21 +48,21 @@ public class Juego {
             System.out.println("\uD83D\uDD0D Categoría seleccionada: " + categoriaAux);
             jugarPorCategoria(categoriaAux, scanner);
         }
-        // Finaliza el juego mostrando el puntaje total y guardándolo en el historial del jugador
+        //Finaliza el juego mostrando el puntaje total y guardándolo en el historial del jugador
         System.out.println("\n\u001B[47m\u001B[30m\uD83D\uDEA8 Fin del juego. Puntaje total acumulado: " + puntaje.getPuntaje() + " \uD83D\uDEA8\u001B[0m");
         this.jugador.agregarPuntaje(puntaje);// Agregar puntaje al historial del jugador
 
         puntaje = new Puntaje(0);
     }
 
-    //metodo para obtener una categoria aleatoria
+    ///metodo para obtener una categoria aleatoria
     public Categoria obtenerCategoria(){
         Random random = new Random();
         int numeroAleatorio = random.nextInt(6) + 1; //esto es para que se genere un numero del 1 al 6, sin tener en cuenta el 0.
         return Categoria.obtenerCategoriaPorId(numeroAleatorio);
     }
 
-    //metodo para manejar las preguntas de una categoria especifica
+    ///metodo para manejar las preguntas de una categoria especifica
     private void jugarPorCategoria(Categoria categoria, Scanner scanner) {
         desordenarPreguntas();
         int racha = 0;
@@ -84,28 +84,12 @@ public class Juego {
 
     }
 
-    // Desordena la lista de preguntas para añadir variedad al juego.
+    ///Desordena la lista de preguntas para añadir variedad al juego.
     private void desordenarPreguntas() {
         Collections.shuffle(preguntas.getPreguntas());
     }
 
-    // Procesa las preguntas filtradas por categoría, mostrando y evaluando cada una.
-    private int procesarPreguntasPorCategoria(Categoria categoria, Scanner scanner, int racha) {
-        List<Pregunta> preguntasFiltradas = new ArrayList<>();
-        for(Pregunta pregunta : preguntas.getPreguntas()) {
-            if(pregunta.categoria == categoria) {
-                preguntasFiltradas.add(pregunta);
-            }
-        }
-
-        //Procesamos solo las preguntas de la categoria seleccionada
-        for(Pregunta preguntaAux : preguntasFiltradas) {
-            racha = manejarPregunta(preguntaAux, racha, scanner);
-        }
-        return racha;
-    }
-
-    // Maneja una pregunta específica: muestra el enunciado, obtiene la respuesta y la evalúa.
+    ///Maneja una pregunta específica: muestra el enunciado, obtiene la respuesta y la evalúa.
     private int manejarPregunta(Pregunta preguntaAux, int racha, Scanner scanner) {
         System.out.println(preguntaAux.getEnunciado());
         System.out.println(preguntaAux.mostrarOpciones());
@@ -121,7 +105,7 @@ public class Juego {
         return racha;
     }
 
-    //obtener la respuesta seleccionada por el jugador a una pregunta, ya sea de tipo Multiple Choice o Verdadero o Falso.
+    ///obtener la respuesta seleccionada por el jugador a una pregunta, ya sea de tipo Multiple Choice o Verdadero o Falso.
     public String obtenerRespuestaDelJugador(Pregunta pregunta, Scanner scanner){
         System.out.println("\n\uD83D\uDC47 Ingrese la opcion correcta: ");
         int opcionRespuesta = -1;
@@ -141,7 +125,7 @@ public class Juego {
        return obtenerRespuesta(pregunta, opcionRespuesta);
     }
 
-    //metodo general para obtener respuesta
+    ///metodo general para obtener respuesta
     private String obtenerRespuesta(Pregunta pregunta, int opcionRespuesta) {
         if(pregunta instanceof PreguntaMultipleChoice){
             return ((PreguntaMultipleChoice) pregunta).getOpciones().getElementos().get(opcionRespuesta-1);
@@ -151,7 +135,7 @@ public class Juego {
         return "";
     }
 
-    //metodo para obtener la cantidad maxima de opciones disponibles por pregunta
+    ///metodo para obtener la cantidad maxima de opciones disponibles por pregunta
     private int obtenerMaxOpciones(Pregunta pregunta) {
         if(pregunta instanceof PreguntaMultipleChoice){
             return ((PreguntaMultipleChoice) pregunta).getOpciones().getElementos().size();
@@ -161,7 +145,7 @@ public class Juego {
         throw new IllegalArgumentException("Tipo de pregunta no reconocido");
     }
 
-    //Procesa las respuestas correctas, calculando el puntaje y actualizando la racha.
+    ///Procesa las respuestas correctas, calculando el puntaje y actualizando la racha.
     private int manejarRespuestaCorrecta(Pregunta preguntaAux, int racha) {
         System.out.println("\u001B[32m¡Correcto! Calculando puntos...\u001B[0m");
         if (racha != 0) {
@@ -178,8 +162,7 @@ public class Juego {
         return racha;
     }
 
-
-    //Procesa las respuestas incorrectas, aplicando penalización y reiniciando la racha.
+    ///Procesa las respuestas incorrectas, aplicando penalización y reiniciando la racha.
     private int manejarRespuestaIncorrecta(int racha, RespuestaIncorrecta e) {
         System.out.println(e.getMessage());
         puntaje.setPuntaje(puntaje.getPuntaje() - 5);
@@ -191,6 +174,4 @@ public class Juego {
 
         return racha;
     }
-
-
 }

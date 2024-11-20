@@ -1,6 +1,7 @@
 package Modelo.Enum;
 
 public enum Categoria {
+    /// categorias
     HISTORIA (1),
     GEOGRAFIA (2),
     ENTRETENIMIENTO (3),
@@ -8,20 +9,20 @@ public enum Categoria {
     TECNOLOGIA (5),
     DEPORTE (6);
 
-    //atributo para guardar el id
+    /// atributo para guardar el id
     private final int id;
 
-    //constructor para guardar el id
+    /// constructor para guardar el id
     Categoria(int id) {
         this.id = id;
     }
 
-    //metodo
+    /// get
     public int getId() {
         return id;
     }
 
-    // Método estático para obtener la categoría por su id
+    /// Metodo estático para obtener la categoría por su id
     public static Categoria obtenerCategoriaPorId(int id) {
         for (Categoria categoria : Categoria.values()) {
             if (categoria.getId() == id) {

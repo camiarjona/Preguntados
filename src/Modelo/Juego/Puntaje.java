@@ -9,9 +9,11 @@ import java.time.format.DateTimeFormatter;
 
 public class Puntaje implements IJson {
 
+    /// atirbutos
     private int puntaje;
     private LocalDateTime fecha;
 
+    /// constructores
     public Puntaje(int puntaje) {
         this.puntaje = puntaje;
         fecha = LocalDateTime.now();
@@ -21,11 +23,7 @@ public class Puntaje implements IJson {
         fecha = LocalDateTime.now();
     }
 
-
-    public LocalDateTime getFecha() {
-        return fecha;
-    }
-
+    /// get y set
     public int getPuntaje() {
         return puntaje;
     }
@@ -38,6 +36,7 @@ public class Puntaje implements IJson {
         this.fecha = fecha;
     }
 
+    /// to string
     @Override
     public String toString() {
         DateTimeFormatter formatear = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -45,6 +44,7 @@ public class Puntaje implements IJson {
                 "\nFecha: " + fecha.format(formatear);
     }
 
+    /// metodo para convertir un puntje a json object
     @Override
     public JSONObject toJson() {
         JSONObject objeto = new JSONObject();
@@ -57,6 +57,7 @@ public class Puntaje implements IJson {
         return objeto;
     }
 
+    /// metodo para traer un puntaje desde el archivo json
    public static Puntaje fromJson(JSONObject j) {
         Puntaje puntaje = new Puntaje();
         try {

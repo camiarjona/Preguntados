@@ -8,12 +8,13 @@ import Modelo.Enum.Categoria;
 import java.util.Objects;
 
 public abstract class Pregunta implements IJson, IEvaluable, IObtener {
-
+    /// atributos
     protected  static  int idAuto = 0;
     protected int id;
     protected String enunciado;
     protected Categoria categoria;
 
+    /// constructores
     public Pregunta(String enunciado, Categoria categoria) {
         this.id = idAuto++;
         this.enunciado = enunciado;
@@ -24,6 +25,7 @@ public abstract class Pregunta implements IJson, IEvaluable, IObtener {
         this.id = idAuto++;
     }
 
+    /// get y set
     public int getId() {
         return id;
     }
@@ -40,10 +42,12 @@ public abstract class Pregunta implements IJson, IEvaluable, IObtener {
         this.categoria = categoria;
     }
 
+    /// metodo para mostrar opciones
     public String mostrarOpciones(){
         return "";
     }
 
+    /// equals
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -56,6 +60,7 @@ public abstract class Pregunta implements IJson, IEvaluable, IObtener {
         return Objects.hashCode(id);
     }
 
+    /// to string
     @Override
     public String toString() {
         return "ID: " + id +

@@ -2,20 +2,18 @@ package Modelo.Juego;
 
 import Excepciones.Preguntas.RespuestaIncorrecta;
 import Gestion.GestionDeElementos;
-import Interfaces.IEvaluable;
-import Interfaces.IObtener;
 import Modelo.Enum.Categoria;
-import Modelo.Usuario.Jugador;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PreguntaMultipleChoice extends Pregunta{
-
+    /// atributos
     private static final int puntajeBase = 20;
     private GestionDeElementos<String> opciones;
     private String respuestaCorrecta;
 
+    /// constructores
     public PreguntaMultipleChoice(String enunciado, Categoria categoria, String respuestaCorrecta) {
         super(enunciado, categoria);
         this.opciones = new GestionDeElementos<>();
@@ -27,11 +25,7 @@ public class PreguntaMultipleChoice extends Pregunta{
         this.opciones = new GestionDeElementos<>();
     }
 
-
-    public void setOpciones(GestionDeElementos<String> opciones) {
-        this.opciones = opciones;
-    }
-
+    /// set y get
     public void setRespuestaCorrecta(String respuestaCorrecta) {
         this.respuestaCorrecta = respuestaCorrecta;
     }
@@ -40,25 +34,27 @@ public class PreguntaMultipleChoice extends Pregunta{
         return opciones;
     }
 
-
+    /// metodo para agregar opciones a la lista
     public void agregarOpcion(String opcion) {
         opciones.agregarElemento(opcion);
     }
 
-
+    /// metodo para evaluar respuesta
     @Override
     public boolean evaluarRespuesta(String respuesta) throws RespuestaIncorrecta{
         if(!respuesta.equals(respuestaCorrecta)){
-            throw new RespuestaIncorrecta("Respuesta incorrecta");
+            throw new RespuestaIncorrecta("\033[31m\uD83D\uDEAB Respuesta Incorrecta \uD83D\uDEAB\033[0m");
         }
         return true;
     }
 
+    /// metodo para obtener puntaje base
     @Override
     public int getPuntajeBase() {
         return puntajeBase;
     }
 
+    /// metodo para mostrar opciones
     @Override
    public String mostrarOpciones(){
        StringBuilder op = new StringBuilder();
@@ -70,6 +66,7 @@ public class PreguntaMultipleChoice extends Pregunta{
         return op.toString();
     }
 
+    ///  metodo para convertir la lista de opciones en un json array
     public JSONArray toJsonArray() {
 
             JSONArray jsonArray = new JSONArray();
@@ -79,6 +76,7 @@ public class PreguntaMultipleChoice extends Pregunta{
             return jsonArray;
         }
 
+        /// metodo para convertir una pregunta mc a json object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -95,6 +93,7 @@ public class PreguntaMultipleChoice extends Pregunta{
         return json;
     }
 
+    /// metodo para traer una pregunta mc del archivo json
     public static PreguntaMultipleChoice jsonToObj(JSONObject json){
 
             PreguntaMultipleChoice objPregunta = new PreguntaMultipleChoice();
@@ -116,9 +115,7 @@ public class PreguntaMultipleChoice extends Pregunta{
             }
         return objPregunta;
     }
-
-
-    }
+ }
 
 
 
