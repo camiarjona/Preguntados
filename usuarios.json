@@ -1,0 +1,17 @@
+[
+    {
+        "Contrasenia": "admin",
+        "Email": "admin@mail.com",
+        "HistorialPuntajes": [],
+        "NombreUsuario": "admin"
+    },
+    {
+        "Contrasenia": "1234",
+        "Email": "cami@mail.com",
+        "HistorialPuntajes": [{
+            "Fecha": "2024-11-19T17:10:03.184710800",
+            "Puntaje": 25
+        }],
+        "NombreUsuario": "cami"
+    }
+]
