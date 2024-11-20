@@ -92,9 +92,9 @@ public class Menu {
 
     ///metodo para mostrar las opciones del jugador
     private void imprimirMenuJugador(){
-        System.out.println("\n***********************************");
+        System.out.println("\n*************************");
         System.out.println("\u001B[44m\u001B[1m\uD83D\uDE4C\u001B[30m ¡¡Bienvenido " + jugadorAutenticado.getNombreUsuario() + "!! \uD83D\uDE4C \u001B[0m");
-        System.out.println("***********************************");
+        System.out.println("*************************");
         System.out.println("1\uFE0F⃣  Jugar partida\uD83D\uDD79\uFE0F");
         System.out.println("2\uFE0F⃣  Ver historial de partidas\uD83D\uDCDD");
         System.out.println("3\uFE0F⃣  Volver al menu principal↩\uFE0F");
@@ -175,9 +175,9 @@ public class Menu {
 
     ///metodo para imprimir menu admin
     private void imprimirMenuAdministrador(){
-        System.out.println("\n***********************************");
+        System.out.println("\n*************************");
         System.out.println("\u001B[47m\u001B[30m\uD83D\uDD75\uFE0F MENÚ ADMINISTRADOR \uD83D\uDD75\uFE0F\u001B[0m");
-        System.out.println("***********************************");
+        System.out.println("*************************");
         System.out.println("1\uFE0F⃣  Agregar pregunta\uD83D\uDCA1");
         System.out.println("2\uFE0F⃣  Eliminar pregunta❌");
         System.out.println("3\uFE0F⃣  Ver lista de preguntas\uD83D\uDCDD");
