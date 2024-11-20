@@ -1,17 +1,16 @@
 package Modelo.Juego;
 
 import Excepciones.Preguntas.RespuestaIncorrecta;
-import Interfaces.IEvaluable;
-import Interfaces.IObtener;
 import Modelo.Enum.Categoria;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PreguntaVerdaderoOFalso extends Pregunta   {
-
+    /// atributos
     private static final int puntajeBase = 10;
     private String respuestaCorrecta;
 
+    /// constructores
     public PreguntaVerdaderoOFalso(String enunciado, Categoria categoria, String respuestaCorrecta) {
         super(enunciado, categoria);
         this.respuestaCorrecta = respuestaCorrecta;
@@ -22,16 +21,16 @@ public class PreguntaVerdaderoOFalso extends Pregunta   {
         super();
     }
 
+    /// metodo para evaluar respuesta vof
     @Override
     public boolean evaluarRespuesta(String respuesta) throws RespuestaIncorrecta {
 
         if(!respuestaCorrecta.equalsIgnoreCase(respuesta)){
-            throw new RespuestaIncorrecta("Respuesta Incorrecta");
+            throw new RespuestaIncorrecta("\033[31m\uD83D\uDEAB Respuesta Incorrecta \uD83D\uDEAB\033[0m");
         }
         return true;
     }
-
-
+    /// get y set
     @Override
     public int getPuntajeBase() {
         return puntajeBase;
@@ -41,6 +40,7 @@ public class PreguntaVerdaderoOFalso extends Pregunta   {
         this.respuestaCorrecta = respuestaCorrecta;
     }
 
+    /// metodo para mostrar las opciones vof
     @Override
     public String mostrarOpciones() {
         StringBuilder op = new StringBuilder();
@@ -50,7 +50,7 @@ public class PreguntaVerdaderoOFalso extends Pregunta   {
         return op.toString();
     }
 
-
+    /// metodo para convertir una pregunta vof a json object
     @Override
     public JSONObject toJson() {
 
@@ -69,6 +69,7 @@ public class PreguntaVerdaderoOFalso extends Pregunta   {
         return jsonObject;
     }
 
+    /// metodo para traer una pregunta vof desde el archivo json
     public static PreguntaVerdaderoOFalso jsonToObject(JSONObject jsonObject)
     {
         PreguntaVerdaderoOFalso nuevaPreguntaVoF = new PreguntaVerdaderoOFalso();
@@ -86,9 +87,6 @@ public class PreguntaVerdaderoOFalso extends Pregunta   {
         {
             e.printStackTrace();
         }
-
         return nuevaPreguntaVoF;
-
     }
-
 }

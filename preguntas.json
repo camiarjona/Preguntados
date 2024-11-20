@@ -478,5 +478,16 @@
             "Programacion organizada y optimizada"
         ],
         "RespuestaCorrecta": "Programación orientada a objetos"
+    },
+    {
+        "Enunciado": "Albion Online es...",
+        "Categoria": "ENTRETENIMIENTO",
+        "Opciones": [
+            "un mmorpg no lineal de tipo sandbox, en el que escribes tu propia historia sin limitarte a seguir un camino prefijado.",
+            "Un rpg lineal",
+            "Un MOBA",
+            "Un libro de estadistica"
+        ],
+        "RespuestaCorrecta": "un mmorpg no lineal de tipo sandbox, en el que escribes tu propia historia sin limitarte a seguir un camino prefijado."
     }
 ]

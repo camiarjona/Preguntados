@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class JSONUtiles {
 
-    //metodo para leer el archivo
+    ///metodo para leer el archivo
     public static String leerArchivo(String nombre){
         StringBuilder contenido = new StringBuilder();
         try(BufferedReader br = new BufferedReader(new FileReader(nombre))){
@@ -23,7 +23,7 @@ public class JSONUtiles {
         return contenido.toString();
     }
 
-    //metodo para guardar el archivo un array
+    ///metodo para guardar el archivo un json array
     public static void guardarJSONArray(JSONArray array, String nombre) {
         try(FileWriter file = new FileWriter(nombre)){
             file.write(array.toString(4));
@@ -32,7 +32,7 @@ public class JSONUtiles {
         }
     }
 
-    //metodo para guardar el archivo un object
+    ///metodo para guardar en el archivo un json object
     public static void guardarJSONObject(JSONObject obj, String nombre) {
         try(FileWriter file = new FileWriter(nombre)){
             file.write(obj.toString(4));

@@ -3,11 +3,12 @@ package Modelo.Usuario;
 import java.util.Objects;
 
 public class Usuario {
-
+    /// atributos
     protected String nombreUsuario;
     protected String email;
     protected String contrasenia;
 
+    /// constructores
     public Usuario(String nombreUsuario, String email, String contrasenia) {
         this.nombreUsuario = nombreUsuario;
         this.email = email;
@@ -17,6 +18,7 @@ public class Usuario {
     public Usuario() {
     }
 
+    /// get y set
     public String getNombreUsuario() {
         return nombreUsuario;
     }
@@ -41,6 +43,7 @@ public class Usuario {
         this.email = email;
     }
 
+    /// equals
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -53,6 +56,7 @@ public class Usuario {
         return Objects.hash(nombreUsuario, email);
     }
 
+    /// to string
     @Override
     public String toString() {
         return "Usuario: " +

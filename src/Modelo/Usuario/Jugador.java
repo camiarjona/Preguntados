@@ -1,6 +1,5 @@
 package Modelo.Usuario;
 
-import Gestion.GestionDeElementos;
 import Interfaces.IJson;
 import Modelo.Juego.Puntaje;
 import org.json.JSONArray;
@@ -11,9 +10,10 @@ import java.util.ArrayList;
 
 public class Jugador extends Usuario implements IJson {
 
+   ///atributos
    private ArrayList<Puntaje> puntajesHistorial;
 
-   ///Constructor
+   ///Constructores
    public Jugador(String nombreUsuario, String email, String contrasenia) {
       super(nombreUsuario, email, contrasenia);
       this.puntajesHistorial = new ArrayList<>();
@@ -23,22 +23,14 @@ public class Jugador extends Usuario implements IJson {
       this.puntajesHistorial = new ArrayList<>();
    }
 
-   public ArrayList<Puntaje> getPuntajesHistorial() {
-      return puntajesHistorial;
-   }
-
-   public void setPuntajesHistorial(ArrayList<Puntaje> puntajesHistorial) {
-      this.puntajesHistorial = puntajesHistorial;
-   }
-
-   //metodo agregar puntaje
+   ///metodo para agregar puntaje al historial
    public void agregarPuntaje(Puntaje puntaje) {
       if(puntaje != null) {
          puntajesHistorial.add(puntaje);
       }
    }
 
-   //metodo mostrar historial
+   ///metodo mostrar historial de puntajes
    public String mostrarHistorial() {
       StringBuilder sb = new StringBuilder();
       int i = 1;
@@ -49,13 +41,13 @@ public class Jugador extends Usuario implements IJson {
       return sb.toString();
    }
 
-   //to string jugador
+   ///to string jugador
    @Override
    public String toString() {
       return super.toString() + "\nPuntajes: " + mostrarHistorial();
    }
 
-   //Metodo para convertir el historial de puntajes a un JSONArray
+   ///Metodo para convertir el historial de puntajes a un JSONArray
    public JSONArray toJsonArray() {
       JSONArray jsonArray = new JSONArray();
       for (Puntaje puntaje : puntajesHistorial) {
@@ -64,7 +56,7 @@ public class Jugador extends Usuario implements IJson {
       return jsonArray;
    }
 
-   //Sobreescritura
+   ///metodo para convertir un jugador a un json object
    @Override
    public JSONObject toJson() {
       JSONObject json = new JSONObject();
@@ -79,7 +71,7 @@ public class Jugador extends Usuario implements IJson {
       return json;
    }
 
-
+   ///metodo para traer un jugador desde el json
    public static Jugador toObj(JSONObject json) {
       Jugador nuevo = new Jugador();
       try{
@@ -99,11 +91,6 @@ public class Jugador extends Usuario implements IJson {
       }catch(RuntimeException e){
          throw new RuntimeException("Error al procesar los puntajes", e);
       }
-
       return nuevo;
    }
-
-
-
-
 }

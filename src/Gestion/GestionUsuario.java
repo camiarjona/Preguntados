@@ -6,34 +6,25 @@ import Excepciones.Usuario.UsuarioExistente;
 import Excepciones.Usuario.UsuarioIncorrecto;
 import JSON.JSONUtiles;
 import Modelo.Usuario.Jugador;
-import Modelo.Usuario.Usuario;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-
 public class GestionUsuario {
-
+    ///atributo
     private GestionDeElementos<Jugador> usuarios;
 
+    ///constructor
     public GestionUsuario() {
         usuarios = new GestionDeElementos<>();
     }
 
+    ///metodo para agregar un usuario a la lista
     public void agregarUsuario(Jugador usuario) {
         usuarios.agregarElemento(usuario);
     }
 
-    public void eliminarUsuario(Jugador usuario) {
-        usuarios.eliminarElemento(usuario);
-    }
-
-    public boolean buscarUsuario(Jugador usuario) {
-        return usuarios.buscarElemento(usuario);
-    }
-
-    // Metodo login
+    ///metodo para validar el inicio de sesion
     public boolean verificarLogin(String nombreUsuario, String contrasenia) throws UsuarioIncorrecto, ContraseniaInconrrecta {
         for (Jugador usuario : usuarios.getElementos()) {
             if (usuario.getNombreUsuario().equalsIgnoreCase(nombreUsuario)) {
@@ -41,14 +32,15 @@ public class GestionUsuario {
                 if (usuario.getContrasenia().equals(contrasenia)) {
                     return true; //Si ambos coinciden, retorno verdadero
                 } else {
-                    throw new ContraseniaInconrrecta("Contraseña incorrecta.");
+                    throw new ContraseniaInconrrecta("\n\033[31mContraseña incorrecta.\u001B[0m");
                 }
             }
         }
         // Si sale del bucle, significa que el usuario es incorrecto
-        throw new UsuarioIncorrecto("Nombre de usuario incorrecto.");
+        throw new UsuarioIncorrecto("\n\033[31mNombre de usuario incorrecto.\u001B[0m");
     }
 
+    ///metodo para verificar si el usuario existe
     public void existeUsuario(String nombreUsuario) throws UsuarioExistente {
         for (Jugador usuario : usuarios.getElementos()) {
             if (usuario.getNombreUsuario().equalsIgnoreCase(nombreUsuario)) {
@@ -57,6 +49,7 @@ public class GestionUsuario {
         }
     }
 
+    ///metodo para verificar si el mail existe
     public void existeMail(String mail) throws CorreoExistente {
         for (Jugador usuario : usuarios.getElementos()) {
             if (usuario.getEmail().equalsIgnoreCase(mail)) {
@@ -65,7 +58,7 @@ public class GestionUsuario {
         }
     }
 
-    //metodo para obtener el jugador una vez inciada la sesion
+    ///metodo para obtener el jugador una vez inciada la sesion
     public Jugador obtenerJugadorPorNombre(String nombreUsuario) throws UsuarioIncorrecto {
         for (Jugador usuario : usuarios.getElementos()) {
             if (usuario instanceof Jugador && usuario.getNombreUsuario().equals(nombreUsuario)) {
@@ -75,7 +68,7 @@ public class GestionUsuario {
         throw new UsuarioIncorrecto("El usuario no existe.");
     }
 
-    //metodo para convertir mi lista de usuarios a formato json
+    ///metodo para convertir mi lista de usuarios a formato json
     public JSONArray usuariosAJson(){
         JSONArray jsonArray = new JSONArray();
         for (Jugador usuario : usuarios.getElementos()) {
@@ -84,7 +77,7 @@ public class GestionUsuario {
         return jsonArray;
     }
 
-    //metodo para convertir mi jsonArray de usuarios a formato Gestion de usuarios
+    ///metodo para convertir mi jsonArray de usuarios a formato Gestion de usuarios
     public static GestionUsuario toObjUsuarios(JSONArray jsonArray) {
         GestionUsuario gestionUsuario = new GestionUsuario();
         try {
@@ -101,6 +94,7 @@ public class GestionUsuario {
         return gestionUsuario;
     }
 
+    ///metodo para cargar usuarios a mi lista
     public void cargarUsuariosDesdeJson(String rutaArchivo) {
         try {
             // Leer el contenido del archivo JSON
@@ -115,13 +109,14 @@ public class GestionUsuario {
             // Copiar los usuarios cargados a la lista de usuarios actual
             this.usuarios = gestionUsuario.usuarios;
 
-            System.out.println("Usuarios cargados con éxito.");
+            System.out.println("\033[32mUsuarios cargados con éxito.\u001B[0m");
 
         }catch (JSONException e) {
             System.out.println("Error al procesar el archivo JSON: " + e.getMessage());
         }
     }
 
+    ///metodo para guardar usuarios en el json
     public void guardarUsuarios(String rutaArchivo) {
         JSONArray jsonArray = usuariosAJson();
         JSONUtiles.guardarJSONArray(jsonArray, rutaArchivo);
