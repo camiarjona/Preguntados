@@ -116,7 +116,7 @@ public class Menu {
                         gestionUsuario.guardarUsuarios("usuarios.json");
                         break;
                     case 2:
-                        System.out.println("\n\u001B[35m⏳ HISTORIAL DE PARTIDAS: ⏳\u001B[0m");
+                        System.out.println("\n\u001B[35m⏳ HISTORIAL DE PARTIDAS ⏳\u001B[0m");
                         System.out.println(jugadorAutenticado.mostrarHistorial());
                         System.out.println("\u001B[35m--------------------\u001B[0m");
                         break;
@@ -201,7 +201,7 @@ public class Menu {
                         eliminarPregunta(sc);
                         break;
                     case 3:
-                        System.out.println("\n\u001B[35m❓ LISTA DE PREGUNTAS: ❓\u001B[0m\n");
+                        System.out.println("\n\u001B[35m❓ LISTA DE PREGUNTAS ❓\u001B[0m\n");
                         System.out.println(gestionPreguntas.mostrarPreguntas());
                         System.out.println("\u001B[35m--------------------\u001B[0m");
                         break;
@@ -394,11 +394,13 @@ public class Menu {
         while (seguirAgregando) {
             System.out.println("Ingrese una opción: ");
             String opcion = sc.nextLine();
-            nueva.agregarOpcion(opcion); // Añadir la opción a la lista
-
-            seguirAgregando = preguntarSiContinuar(sc); // Método separado para validar la respuesta del usuario
+            try{
+                nueva.agregarOpcion(opcion); // Añadir la opción a la lista
+                seguirAgregando = preguntarSiContinuar(sc); // Metodo separado para validar la respuesta del usuario
+            }catch (ElementoDuplicado e){
+                System.out.println("⚠️La opción que quieres agregar ya se encuentra en la lista. Por favor, intente nuevamente.");
+            }
         }
-
         // Desordenar las opciones
         Collections.shuffle(nueva.getOpciones().getElementos());
     }
@@ -428,8 +430,8 @@ public class Menu {
 
     //metodo para imprimir el menu de agregar pregunta administrador
     private void imprimirPregunta(){
-        System.out.println("¿Qué tipo de pregunta desea agregar? \uD83E\uDD14");
-        System.out.println("\n1\uFE0F⃣ Pregunta múltiple choice.");
+        System.out.println("\033[36m¿Qué tipo de pregunta desea agregar? \uD83E\uDD14\033[0m");
+        System.out.println("1\uFE0F⃣ Pregunta múltiple choice.");
         System.out.println("2\uFE0F⃣ Pregunta verdadero o falso.");
         System.out.println("3\uFE0F⃣ Volver al menú anterior.");
     }
