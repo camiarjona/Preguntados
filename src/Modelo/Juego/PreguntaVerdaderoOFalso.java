@@ -59,7 +59,7 @@ public class PreguntaVerdaderoOFalso extends Pregunta   {
         {
             jsonObject.put("Enunciado", enunciado);
             jsonObject.put("Categoria", categoria);
-            jsonObject.put("Respuesta Correcta", respuestaCorrecta);
+            jsonObject.put("RespuestaCorrecta", respuestaCorrecta);
 
         }
         catch (JSONException e)
@@ -76,7 +76,7 @@ public class PreguntaVerdaderoOFalso extends Pregunta   {
         {
             String enunciado = jsonObject.getString("Enunciado");
             Categoria categoria = Categoria.valueOf(jsonObject.getString("Categoria"));
-            String respuestaCorrecta = jsonObject.getString("Respuesta Correcta");
+            String respuestaCorrecta = jsonObject.getString("RespuestaCorrecta");
 
             nuevaPreguntaVoF.setEnunciado(enunciado);
             nuevaPreguntaVoF.setCategoria(categoria);

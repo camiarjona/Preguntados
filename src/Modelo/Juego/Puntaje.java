@@ -34,6 +34,10 @@ public class Puntaje implements IJson {
         this.puntaje = puntaje;
     }
 
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
+
     @Override
     public String toString() {
         DateTimeFormatter formatear = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -57,6 +61,10 @@ public class Puntaje implements IJson {
         Puntaje puntaje = new Puntaje();
         try {
             puntaje.setPuntaje(j.getInt("Puntaje"));
+            String fechaStr = j.getString("Fecha"); // Leer la fecha como cadena
+            LocalDateTime fecha = LocalDateTime.parse(fechaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.n")); // Parsear la fecha
+            puntaje.setFecha(fecha); // Asignar la fecha al objeto Puntaje
+
         }catch (JSONException e) {
            e.printStackTrace();
         }
