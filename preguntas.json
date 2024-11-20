@@ -464,17 +464,6 @@
         "RespuestaCorrecta": "Verdadero"
     },
     {
-        "Enunciado": "Albion Online es...",
-        "Categoria": "ENTRETENIMIENTO",
-        "Opciones": [
-            "un libro de estadistica",
-            "un rpg lineal",
-            "un MMORPG no linel de tipo sandbox en el que eliges tu propio destino sin limitarte a un camino prefijado.",
-            "un MOBA"
-        ],
-        "RespuestaCorrecta": "un MMORPG no lineal de tipo sandbox en el que eliges tu propio destino sin limitarte a un camino prefijado."
-    },
-    {
         "Enunciado": "La Copa del Mundo de la FIFA se celebró por primera vez en 1930 en Uruguay.",
         "Categoria": "DEPORTE",
         "RespuestaCorrecta": "Verdadero"

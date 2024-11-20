@@ -47,7 +47,16 @@
     {
         "Contrasenia": "1234",
         "Email": "belen@email.com",
-        "HistorialPuntajes": [],
+        "HistorialPuntajes": [
+            {
+                "Fecha": "2024-11-19T23:32:07.875806600",
+                "Puntaje": -15
+            },
+            {
+                "Fecha": "2024-11-19T23:50:32.145181800",
+                "Puntaje": 99
+            }
+        ],
         "NombreUsuario": "belen"
     },
     {
