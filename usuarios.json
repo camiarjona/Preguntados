@@ -32,8 +32,34 @@
             {
                 "Fecha": "2024-11-19T19:58:46.763184900",
                 "Puntaje": 27
+            },
+            {
+                "Fecha": "2024-11-19T22:46:51.259026700",
+                "Puntaje": 37
+            },
+            {
+                "Fecha": "2024-11-19T23:04:58.000233490",
+                "Puntaje": 12
             }
         ],
         "NombreUsuario": "cami"
+    },
+    {
+        "Contrasenia": "1234",
+        "Email": "belen@email.com",
+        "HistorialPuntajes": [],
+        "NombreUsuario": "belen"
+    },
+    {
+        "Contrasenia": "123",
+        "Email": "juani@mail.com",
+        "HistorialPuntajes": [],
+        "NombreUsuario": "juani"
+    },
+    {
+        "Contrasenia": "1234",
+        "Email": "pepo",
+        "HistorialPuntajes": [],
+        "NombreUsuario": "pepo"
     }
 ]
