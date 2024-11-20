@@ -55,6 +55,10 @@
             {
                 "Fecha": "2024-11-19T23:50:32.145181800",
                 "Puntaje": 99
+            },
+            {
+                "Fecha": "2024-11-20T00:02:42.800728700",
+                "Puntaje": 37
             }
         ],
         "NombreUsuario": "belen"
@@ -72,12 +76,12 @@
         "NombreUsuario": "pepo"
     },
     {
-        "Contrasenia": "ale",
-        "Email": "ale@gmail.com}",
+        "Contrasenia": "brisa2002",
+        "Email": "brisa-ortiz-200@gfgfdf.com",
         "HistorialPuntajes": [{
-            "Fecha": "2024-11-20T12:59:35.506895400",
-            "Puntaje": 46
+            "Fecha": "2024-11-20T13:06:04.383090400",
+            "Puntaje": 39
         }],
-        "NombreUsuario": "ale"
+        "NombreUsuario": "Brisa"
     }
 ]
