@@ -70,5 +70,14 @@
         "Email": "pepo",
         "HistorialPuntajes": [],
         "NombreUsuario": "pepo"
+    },
+    {
+        "Contrasenia": "ale",
+        "Email": "ale@gmail.com}",
+        "HistorialPuntajes": [{
+            "Fecha": "2024-11-20T12:59:35.506895400",
+            "Puntaje": 46
+        }],
+        "NombreUsuario": "ale"
     }
 ]
