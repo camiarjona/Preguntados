@@ -1,0 +1,493 @@
+[
+    {
+        "Enunciado": "¿Cuál es el nombre de la película que protagonizó Will Smith como un genio en 2019?",
+        "Categoria": "ENTRETENIMIENTO",
+        "Opciones": [
+            "Aladdin",
+            "Men in Black",
+            "The Pursuit of Happyness",
+            "I Am Legend"
+        ],
+        "RespuestaCorrecta": "Aladdin"
+    },
+    {
+        "Enunciado": "Japón está compuesto por más de 6,000 islas.",
+        "Categoria": "GEOGRAFIA",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "¿Quién fue el líder militar durante la guerra de independencia de los Estados Unidos?",
+        "Categoria": "HISTORIA",
+        "Opciones": [
+            "George Washington",
+            "Thomas Jefferson",
+            "Benjamin Franklin",
+            "John Adams"
+        ],
+        "RespuestaCorrecta": "George Washington"
+    },
+    {
+        "Enunciado": "¿Cuál es el país más grande del mundo?",
+        "Categoria": "GEOGRAFIA",
+        "Opciones": [
+            "Argentina",
+            "Francia",
+            "Rusia",
+            "Chile"
+        ],
+        "RespuestaCorrecta": "Rusia"
+    },
+    {
+        "Enunciado": "El único deporte que ha sido parte de todas las ediciones de los Juegos Olímpicos modernos es el boxeo.",
+        "Categoria": "DEPORTE",
+        "RespuestaCorrecta": "Falso"
+    },
+    {
+        "Enunciado": "La Ley de Moore predice que la cantidad de transistores en un microchip se duplica aproximadamente cada dos años.",
+        "Categoria": "TECNOLOGIA",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "¿En qué año ocurrió la caída del Imperio Romano de Occidente?",
+        "Categoria": "HISTORIA",
+        "Opciones": [
+            "395 d.C.",
+            "476 d.C.",
+            "1492 d.C.",
+            "800 d.C."
+        ],
+        "RespuestaCorrecta": "476 d.C."
+    },
+    {
+        "Enunciado": "¿Quién interpretó a Jack Dawson en la película 'Titanic'?",
+        "Categoria": "ENTRETENIMIENTO",
+        "Opciones": [
+            "Brad Pitt",
+            "Leonardo DiCaprio",
+            "Tom Cruise",
+            "Johnny Depp"
+        ],
+        "RespuestaCorrecta": "Leonardo DiCaprio"
+    },
+    {
+        "Enunciado": "¿Qué imperio conquistó la antigua ciudad de Cartago?",
+        "Categoria": "HISTORIA",
+        "Opciones": [
+            "Imperio Romano",
+            "Imperio Egipcio",
+            "Imperio Persa",
+            "Imperio Griego"
+        ],
+        "RespuestaCorrecta": "Imperio Romano"
+    },
+    {
+        "Enunciado": "Napoleón Bonaparte nació en Inglaterra.",
+        "Categoria": "HISTORIA",
+        "RespuestaCorrecta": "Falso"
+    },
+    {
+        "Enunciado": "¿Cuál es el torneo de tenis más antiguo del mundo?",
+        "Categoria": "DEPORTE",
+        "Opciones": [
+            "Roland Garros",
+            "Wimbledon",
+            "US Open",
+            "Australian Open"
+        ],
+        "RespuestaCorrecta": "Wimbledon"
+    },
+    {
+        "Enunciado": "Que tipo de celula no tiene nucleo?",
+        "Categoria": "CIENCIA",
+        "Opciones": [
+            "Vegetal",
+            "Animal",
+            "Procariota",
+            "Fungica"
+        ],
+        "RespuestaCorrecta": "Procariota"
+    },
+    {
+        "Enunciado": "¿La Revolución de Mayo de 1810 fue el primer paso hacia la independencia de Argentina del Imperio Español?",
+        "Categoria": "HISTORIA",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "El tenis de mesa es un deporte olímpico.",
+        "Categoria": "DEPORTE",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "Cual es el gas mas abundante de la atmosfera terrestre?",
+        "Categoria": "CIENCIA",
+        "Opciones": [
+            "Oxigeno",
+            "Elio",
+            "Nitrogeno",
+            "Argon"
+        ],
+        "RespuestaCorrecta": "Nitrogeno"
+    },
+    {
+        "Enunciado": "La velocidad de la luz en el vacío es aproximadamente 300,000 kilómetros por segundo.",
+        "Categoria": "CIENCIA",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "El Imperio Romano existió durante más de 500 años.",
+        "Categoria": "HISTORIA",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "¿Quién desarrolló el lenguaje de programación C, que se convirtió en la base de muchos otros lenguajes modernos?",
+        "Categoria": "TECNOLOGIA",
+        "Opciones": [
+            "Alan Turing",
+            "Dennis Ritchie",
+            "John McCarthy",
+            "Ken Thompson"
+        ],
+        "RespuestaCorrecta": "Dennis Ritchie"
+    },
+    {
+        "Enunciado": "En programación concurrente, ¿qué significa una condición de carrera (race condition)?",
+        "Categoria": "TECNOLOGIA",
+        "Opciones": [
+            "Un error que ocurre cuando dos o más hilos compiten por acceso al mismo recurso compartido.",
+            "Un proceso que finaliza más rápido de lo esperado.",
+            "Un algoritmo que utiliza múltiples hilos para mejorar el rendimiento.",
+            "Un fallo que ocurre por un límite de memoria excedido."
+        ],
+        "RespuestaCorrecta": "Un error que ocurre cuando dos o más hilos compiten por acceso al mismo recurso compartido."
+    },
+    {
+        "Enunciado": "¿Quién ganó el Oscar a Mejor Película en 2020?",
+        "Categoria": "ENTRETENIMIENTO",
+        "Opciones": [
+            "Joker",
+            "Parasite",
+            "1917",
+            "Once Upon a Time in Hollywood"
+        ],
+        "RespuestaCorrecta": "Parasite"
+    },
+    {
+        "Enunciado": "El primer videojuego de la historia fue Pong, desarrollado en 1972.",
+        "Categoria": "ENTRETENIMIENTO",
+        "RespuestaCorrecta": "Falso"
+    },
+    {
+        "Enunciado": "El ADN está compuesto por cuatro bases nitrogenadas: adenina, citosina, guanina y uracilo.",
+        "Categoria": "CIENCIA",
+        "RespuestaCorrecta": "Falso"
+    },
+    {
+        "Enunciado": "¿Qué océano se encuentra entre África, América y Europa?",
+        "Categoria": "GEOGRAFIA",
+        "Opciones": [
+            "Oceano Pacifico",
+            "Oceano Atlantico",
+            "Oceano Indico",
+            "Oceano Artico"
+        ],
+        "RespuestaCorrecta": "Oceano Atlantico"
+    },
+    {
+        "Enunciado": "Que cientifico propuso la teoria de la relatividad?",
+        "Categoria": "CIENCIA",
+        "Opciones": [
+            "Isaac Newton",
+            "Nikola Tesla",
+            "Albert Einstein",
+            "Galileo Galilei"
+        ],
+        "RespuestaCorrecta": "Albert Einstein"
+    },
+    {
+        "Enunciado": "La película 'Avatar' se estrenó en 2009.",
+        "Categoria": "ENTRETENIMIENTO",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "La película 'Titanic' fue dirigida por Steven Spielberg.",
+        "Categoria": "ENTRETENIMIENTO",
+        "RespuestaCorrecta": "Falso"
+    },
+    {
+        "Enunciado": "Quien invento el Foco de Luz?",
+        "Categoria": "CIENCIA",
+        "Opciones": [
+            "Alfred Einstein",
+            "Issac Newtoon",
+            "Thomas Edison",
+            "Marie Curie"
+        ],
+        "RespuestaCorrecta": "Thomas Edison"
+    },
+    {
+        "Enunciado": "¿Qué país tiene la mayor cantidad de islas en el mundo?",
+        "Categoria": "GEOGRAFIA",
+        "Opciones": [
+            "Canadá",
+            "Suecia",
+            "Indonesia",
+            "Japón"
+        ],
+        "RespuestaCorrecta": "Canadá"
+    },
+    {
+        "Enunciado": "El creador de Linux, Linus Torvalds, desarrolló el sistema operativo mientras trabajaba en Microsoft.",
+        "Categoria": "TECNOLOGIA",
+        "RespuestaCorrecta": "Falso"
+    },
+    {
+        "Enunciado": "El sonido se desplaza mas rapido en el agua que en el aire",
+        "Categoria": "CIENCIA",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "¿Cuál es el río más largo del mundo?",
+        "Categoria": "GEOGRAFIA",
+        "Opciones": [
+            "Amazonas",
+            "Nilo",
+            "Yangtsé",
+            "Misisipi"
+        ],
+        "RespuestaCorrecta": "Amazonas"
+    },
+    {
+        "Enunciado": "¿En qué continente se encuentra el desierto del Sahara?",
+        "Categoria": "GEOGRAFIA",
+        "Opciones": [
+            "Asia",
+            "África",
+            "América",
+            "Australia"
+        ],
+        "RespuestaCorrecta": "África"
+    },
+    {
+        "Enunciado": "La Tierra es el planeta con mas cantidad de agua en el Sistema Solar.",
+        "Categoria": "CIENCIA",
+        "RespuestaCorrecta": "Falso"
+    },
+    {
+        "Enunciado": "Alejandro Magno nunca fue derrotado en batalla.",
+        "Categoria": "HISTORIA",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "Valtteri Bottas tiene el récord de la mejor salida en la historia de la Fórmula 1, con una reacción de 0.041 segundos en el Gran Premio de Alemania 2019.",
+        "Categoria": "DEPORTE",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "¿Cuál fue el propósito principal de la máquina creada por Ada Lovelace y Charles Babbage, conocida como la Máquina Analítica?",
+        "Categoria": "TECNOLOGIA",
+        "Opciones": [
+            "Resolver ecuaciones diferenciales",
+            "Generar gráficos matemáticos",
+            "Ser un ordenador mecánico programable",
+            "Calcular trayectorias balísticas"
+        ],
+        "RespuestaCorrecta": "Ser un ordenador mecánico programable"
+    },
+    {
+        "Enunciado": "La natación sincronizada fue un deporte olímpico por primera vez en los Juegos Olímpicos de Londres 1908.",
+        "Categoria": "DEPORTE",
+        "RespuestaCorrecta": "Falso"
+    },
+    {
+        "Enunciado": "¿En qué deporte se utiliza una red alta y un volante (shuttlecock)?",
+        "Categoria": "DEPORTE",
+        "Opciones": [
+            "Bádminton",
+            "Voleibol",
+            "Tenis de mesa",
+            "Cricket"
+        ],
+        "RespuestaCorrecta": "Bádminton"
+    },
+    {
+        "Enunciado": "¿Qué significa \"POO\" en programación?",
+        "Categoria": "TECNOLOGIA",
+        "Opciones": [
+            "Politica Opcional Optativa",
+            "Programacion Orientada a Objetos",
+            "Programacion Orientada a Ovnis",
+            "Programacion Orientada a Obstaculos"
+        ],
+        "RespuestaCorrecta": "Programacion Orientada a Objetos"
+    },
+    {
+        "Enunciado": "¿Cuántos puntos vale un tiro libre en baloncesto?",
+        "Categoria": "DEPORTE",
+        "Opciones": [
+            "1",
+            "2",
+            "3",
+            "4"
+        ],
+        "RespuestaCorrecta": "1"
+    },
+    {
+        "Enunciado": "Los humanos tienen un total de 206 huesos en el cuerpo adulto.",
+        "Categoria": "CIENCIA",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "HTML es un lenguaje de programación completo que permite realizar cálculos matemáticos avanzados.",
+        "Categoria": "TECNOLOGIA",
+        "RespuestaCorrecta": "Falso"
+    },
+    {
+        "Enunciado": "En los videojuegos, el género \"sandbox\" se caracteriza por ofrecer libertad para explorar y modificar el entorno.",
+        "Categoria": "ENTRETENIMIENTO",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "En Java, ¿cuál de los siguientes modificadores de acceso permite que una clase o miembro sea accesible únicamente dentro del mismo paquete?",
+        "Categoria": "TECNOLOGIA",
+        "Opciones": [
+            "public",
+            "private",
+            "protected",
+            "Sin modificar (por defecto)"
+        ],
+        "RespuestaCorrecta": "Sin modificador (por defecto)"
+    },
+    {
+        "Enunciado": "Que emperador romano le declaro la guerra al mar?",
+        "Categoria": "HISTORIA",
+        "Opciones": [
+            "Julio Cesar",
+            "Neron Claudio",
+            "Caligula",
+            "Constantino"
+        ],
+        "RespuestaCorrecta": "Caligula"
+    },
+    {
+        "Enunciado": "La saga de 'Harry Potter' está basada en libros de J.R.R. Tolkien.",
+        "Categoria": "ENTRETENIMIENTO",
+        "RespuestaCorrecta": "Falso"
+    },
+    {
+        "Enunciado": "¿Quién fue el líder militar cartaginense que cruzó los Alpes para invadir Italia durante la Segunda Guerra Púnica?",
+        "Categoria": "HISTORIA",
+        "Opciones": [
+            "Anibal",
+            "Escipion el Africano",
+            "Julio Cesar",
+            "Cayo Mario"
+        ],
+        "RespuestaCorrecta": "Anibal"
+    },
+    {
+        "Enunciado": "¿En qué año se celebraron los primeros Juegos Olímpicos modernos?",
+        "Categoria": "DEPORTE",
+        "Opciones": [
+            "1892",
+            "1896",
+            "1900",
+            "1904"
+        ],
+        "RespuestaCorrecta": "1896"
+    },
+    {
+        "Enunciado": "Cuál es considerada la Copa mas antígua del Fútbol?",
+        "Categoria": "DEPORTE",
+        "Opciones": [
+            "Copa Mundial de la FIFA",
+            "Copa America",
+            "FA-Cup (Football Association Challenge)",
+            "Copa MercoSur"
+        ],
+        "RespuestaCorrecta": "FA-Cup (Football Association Challenge)"
+    },
+    {
+        "Enunciado": "Cual es el Numero del Plomo en la Tabla Periodica?",
+        "Categoria": "CIENCIA",
+        "Opciones": [
+            "75",
+            "85",
+            "82",
+            "80"
+        ],
+        "RespuestaCorrecta": "82"
+    },
+    {
+        "Enunciado": "La Revolución Francesa comenzó en 1800.",
+        "Categoria": "HISTORIA",
+        "RespuestaCorrecta": "Falso"
+    },
+    {
+        "Enunciado": "El primer lenguaje de programación fue Fortran, creado en 1957.",
+        "Categoria": "TECNOLOGIA",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "El Amazonas se encuentra en Asia.",
+        "Categoria": "GEOGRAFIA",
+        "RespuestaCorrecta": "Falso"
+    },
+    {
+        "Enunciado": "La Gran Muralla China se extiende por más de 20,000 kilómetros.",
+        "Categoria": "GEOGRAFIA",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "El Monte Everest es la montaña más alta del mundo.",
+        "Categoria": "GEOGRAFIA",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "La capital de Canadá es Montreal.",
+        "Categoria": "GEOGRAFIA",
+        "RespuestaCorrecta": "Falso"
+    },
+    {
+        "Enunciado": "En la saga The Legend of Zelda, ¿cómo se llama el reino donde ocurren la mayoría de las aventuras?",
+        "Categoria": "ENTRETENIMIENTO",
+        "Opciones": [
+            "Lorule",
+            "Hyrule",
+            "Termina",
+            "Koholint"
+        ],
+        "RespuestaCorrecta": "Hyrule"
+    },
+    {
+        "Enunciado": "El término 'bug' para referirse a un error en programación proviene de un insecto real encontrado en una computadora.",
+        "Categoria": "TECNOLOGIA",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "Albion Online es...",
+        "Categoria": "ENTRETENIMIENTO",
+        "Opciones": [
+            "un libro de estadistica",
+            "un rpg lineal",
+            "un MMORPG no linel de tipo sandbox en el que eliges tu propio destino sin limitarte a un camino prefijado.",
+            "un MOBA"
+        ],
+        "RespuestaCorrecta": "un MMORPG no lineal de tipo sandbox en el que eliges tu propio destino sin limitarte a un camino prefijado."
+    },
+    {
+        "Enunciado": "La Copa del Mundo de la FIFA se celebró por primera vez en 1930 en Uruguay.",
+        "Categoria": "DEPORTE",
+        "RespuestaCorrecta": "Verdadero"
+    },
+    {
+        "Enunciado": "¿Que significa 'POO' en el contexto de programación?",
+        "Categoria": "TECNOLOGIA",
+        "Opciones": [
+            "Programación orientada a objetos",
+            "Planificacion original de operadores",
+            "Programa de orden y operacion",
+            "Programacion organizada y optimizada"
+        ],
+        "RespuestaCorrecta": "Programación orientada a objetos"
+    }
+]

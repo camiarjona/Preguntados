@@ -1,9 +1,14 @@
 package Gestion;
 
+import Excepciones.ElementoNoExiste;
 import JSON.JSONUtiles;
 import Modelo.Juego.Pregunta;
+import Modelo.Juego.PreguntaMultipleChoice;
+import Modelo.Juego.PreguntaVerdaderoOFalso;
+import Modelo.Usuario.Jugador;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -35,28 +40,46 @@ public class GestionPreguntas {
         return "Preguntas en la lista: \n" + preguntas.getElementos();
     }
 
+    //metodo para mostrar la lista de preguntas
     public String mostrarPreguntas() {
         StringBuilder sb = new StringBuilder();
         int i = 1;
         for (Pregunta pregunta : preguntas.getElementos()) {
-            sb.append(i).append(". ").append(pregunta.toString());
+            sb.append("Pregunta ").append(i).append(". ").append(pregunta.toString()).append("\n");
             i++;
         }
         return sb.toString();
     }
 
-    public boolean eliminarPreguntaPorId(int id) {
-
-        boolean eliminar = false;
-
-        for (Pregunta p : preguntas.getElementos()) {
-            if (p.getId() == id) {
-                preguntas.eliminarElemento(p);
-                eliminar = true;
-            }
-
+    //metodo para convertir mi lista de preguntas a formato json
+    public JSONArray preguntasAJson(){
+        JSONArray jsonArray = new JSONArray();
+        for (Pregunta pregunta : preguntas.getElementos()) {
+            jsonArray.put(pregunta.toJson());
         }
-        return eliminar;
+        return jsonArray;
+    }
+
+    //metodo para convertir mi jsonArray de preguntas a formato Gestion de preguntas
+    public static GestionPreguntas toObj(JSONArray jsonArray) {
+        GestionPreguntas preguntas = new GestionPreguntas();
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                if(jsonObject.has("Opciones")){
+                    PreguntaMultipleChoice pregmc = PreguntaMultipleChoice.jsonToObj(jsonObject);
+                    preguntas.agregarPregunta(pregmc);
+                }
+                else{
+                    PreguntaVerdaderoOFalso pregvof = PreguntaVerdaderoOFalso.jsonToObject(jsonObject);
+                    preguntas.agregarPregunta(pregvof);
+                }
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return preguntas;
     }
 
     public void cargarPreguntasDesdeJson(String rutaArchivo) {
@@ -84,4 +107,5 @@ public class GestionPreguntas {
         JSONArray jsonArray = preguntasAJson();
         JSONUtiles.guardarJSONArray(jsonArray, rutaArchivo);
     }
+
 }

@@ -4,11 +4,14 @@ import Excepciones.Usuario.ContraseniaInconrrecta;
 import Excepciones.Usuario.CorreoExistente;
 import Excepciones.Usuario.UsuarioExistente;
 import Excepciones.Usuario.UsuarioIncorrecto;
+import JSON.JSONUtiles;
 import Modelo.Usuario.Jugador;
 import Modelo.Usuario.Usuario;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 public class GestionUsuario {
 
@@ -82,10 +85,8 @@ public class GestionUsuario {
     }
 
     //metodo para convertir mi jsonArray de usuarios a formato Gestion de usuarios
-
-    public static GestionUsuario toObj(JSONArray jsonArray) {
+    public static GestionUsuario toObjUsuarios(JSONArray jsonArray) {
         GestionUsuario gestionUsuario = new GestionUsuario();
-
         try {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -100,5 +101,30 @@ public class GestionUsuario {
         return gestionUsuario;
     }
 
+    public void cargarUsuariosDesdeJson(String rutaArchivo) {
+        try {
+            // Leer el contenido del archivo JSON
+            String contenido = JSONUtiles.leerArchivo(rutaArchivo);
+
+            // Convertir el contenido en un JSONArray
+            JSONArray jsonArray = new JSONArray(contenido);
+
+            // Convertir el JSONArray en un objeto GestionUsuario
+            GestionUsuario gestionUsuario = toObjUsuarios(jsonArray);
+
+            // Copiar los usuarios cargados a la lista de usuarios actual
+            this.usuarios = gestionUsuario.usuarios;
+
+            System.out.println("Usuarios cargados con éxito.");
+
+        }catch (JSONException e) {
+            System.out.println("Error al procesar el archivo JSON: " + e.getMessage());
+        }
+    }
+
+    public void guardarUsuarios(String rutaArchivo) {
+        JSONArray jsonArray = usuariosAJson();
+        JSONUtiles.guardarJSONArray(jsonArray, rutaArchivo);
+    }
 
 }
