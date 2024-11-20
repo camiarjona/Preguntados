@@ -43,7 +43,7 @@ public class Juego {
     public void iniciarJuego(Scanner scanner) {
         System.out.println("\n\u001B[42m\u001B[30m\uD83C\uDFC1\u001B[1m ¡Comienza el juego! \uD83C\uDFC1\u001B[0m");
         for (int rondaActual = 1; rondaActual <= nroMaxRondas; rondaActual++) {
-            System.out.println("\n\u001B[33m Ronda " + rondaActual + " de " + nroMaxRondas + " \u001B[0m");
+            System.out.println("\n\033[43m\033[30m Ronda " + rondaActual + " de " + nroMaxRondas + " \u001B[0m");
             Categoria categoriaAux = obtenerCategoria(); // Selección de categoría
             System.out.println("\uD83D\uDD0D Categoría seleccionada: " + categoriaAux);
             jugarPorCategoria(categoriaAux, scanner);
