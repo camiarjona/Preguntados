@@ -242,6 +242,7 @@ public class Menu {
                 if (gestionPreguntas.getPreguntas().get(i).getId() == id) {
                     gestionPreguntas.eliminarPregunta(gestionPreguntas.getPreguntas().get(i));
                     System.out.println("Pregunta eliminada con éxito.");
+                    gestionPreguntas.guardarPreguntas("preguntas.json");
                     flag = 1;
                     break;
                 }

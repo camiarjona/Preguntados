@@ -138,13 +138,13 @@ public class Juego {
                scanner.next();
            }
        }
-       return obtenerRespuesta(pregunta, opcionRespuesta - 1);
+       return obtenerRespuesta(pregunta, opcionRespuesta);
     }
 
     //metodo general para obtener respuesta
     private String obtenerRespuesta(Pregunta pregunta, int opcionRespuesta) {
         if(pregunta instanceof PreguntaMultipleChoice){
-            return ((PreguntaMultipleChoice) pregunta).getOpciones().getElementos().get(opcionRespuesta);
+            return ((PreguntaMultipleChoice) pregunta).getOpciones().getElementos().get(opcionRespuesta-1);
         }else if(pregunta instanceof PreguntaVerdaderoOFalso){
             return (opcionRespuesta == 1) ? "Verdadero" : "Falso";
         }
