@@ -1,6 +1,7 @@
 package Gestion;
 
 import Excepciones.ElementoNoExiste;
+import JSON.JSONUtiles;
 import Modelo.Juego.Pregunta;
 import Modelo.Juego.PreguntaMultipleChoice;
 import Modelo.Juego.PreguntaVerdaderoOFalso;
@@ -68,11 +69,12 @@ public class GestionPreguntas {
 
                 if(jsonObject.has("Opciones")){
                     PreguntaMultipleChoice pregmc = PreguntaMultipleChoice.jsonToObj(jsonObject);
+                    preguntas.agregarPregunta(pregmc);
                 }
                 else{
                     PreguntaVerdaderoOFalso pregvof = PreguntaVerdaderoOFalso.jsonToObject(jsonObject);
+                    preguntas.agregarPregunta(pregvof);
                 }
-
             }
         }catch (JSONException e){
             e.printStackTrace();
@@ -80,6 +82,30 @@ public class GestionPreguntas {
         return preguntas;
     }
 
+    public void cargarPreguntasDesdeJson(String rutaArchivo) {
+        try {
+            // Leer el contenido del archivo JSON
+            String contenido = JSONUtiles.leerArchivo(rutaArchivo);
 
+            // Convertir el contenido en un JSONArray
+            JSONArray jsonArray = new JSONArray(contenido);
+
+            // Convertir el JSONArray en un objeto GestionPreguntas
+            GestionPreguntas gestionPreguntas= toObj(jsonArray);
+
+            // Copiar las preguntas cargadas a la lista de preguntas actual
+            this.preguntas = gestionPreguntas.preguntas;
+
+            System.out.println("Preguntas cargadas con éxito.");
+
+        }catch (JSONException e) {
+            System.out.println("Error al procesar el archivo JSON: " + e.getMessage());
+        }
+    }
+
+    public void guardarPreguntas(String rutaArchivo) {
+        JSONArray jsonArray = preguntasAJson();
+        JSONUtiles.guardarJSONArray(jsonArray, rutaArchivo);
+    }
 
 }

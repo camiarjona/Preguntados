@@ -49,7 +49,7 @@ public class Juego {
             jugarPorCategoria(categoriaAux, scanner);
         }
         // Finaliza el juego mostrando el puntaje total y guardándolo en el historial del jugador
-        System.out.println("\n\u001B[47m\u001B\uD83D\uDEA8[30m Fin del juego. Puntaje total acumulado: " + puntaje.getPuntaje() + " \uD83D\uDEA8\u001B[0m");
+        System.out.println("\n\u001B[47m\u001B[30m\uD83D\uDEA8 Fin del juego. Puntaje total acumulado: " + puntaje.getPuntaje() + " \uD83D\uDEA8\u001B[0m");
         this.jugador.agregarPuntaje(puntaje);// Agregar puntaje al historial del jugador
 
         puntaje = new Puntaje(0);
