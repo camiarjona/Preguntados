@@ -87,5 +87,51 @@
             "Puntaje": 39
         }],
         "NombreUsuario": "Brisa"
+    },
+    {
+        "Contrasenia": "emma",
+        "Email": "emma",
+        "HistorialPuntajes": [{
+            "Fecha": "2024-11-20T16:50:27.566393500",
+            "Puntaje": 52
+        }],
+        "NombreUsuario": "Emma"
+    },
+    {
+        "Contrasenia": "lucre",
+        "Email": "lucre",
+        "HistorialPuntajes": [
+            {
+                "Fecha": "2024-11-20T16:53:45.997637900",
+                "Puntaje": 81
+            },
+            {
+                "Fecha": "2024-11-20T16:56:24.609146800",
+                "Puntaje": -3
+            },
+            {
+                "Fecha": "2024-11-20T16:57:37.227364900",
+                "Puntaje": 17
+            }
+        ],
+        "NombreUsuario": "lucre"
+    },
+    {
+        "Contrasenia": "1",
+        "Email": "n@gmail.com",
+        "HistorialPuntajes": [{
+            "Fecha": "2024-11-20T21:31:35.683382800",
+            "Puntaje": 2
+        }],
+        "NombreUsuario": "nico"
+    },
+    {
+        "Contrasenia": "123",
+        "Email": "ale",
+        "HistorialPuntajes": [{
+            "Fecha": "2024-11-24T11:57:12.323254",
+            "Puntaje": 64
+        }],
+        "NombreUsuario": "ale"
     }
 ]
